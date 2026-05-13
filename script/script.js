@@ -162,6 +162,7 @@ async function deleteTask(id){
      await fetch(`${API}/${id}`,{
         method: "DELETE"
      })
+     fetchTasks()
     }catch(err){
     console.log(err)
     }

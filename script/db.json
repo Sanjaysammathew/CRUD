@@ -1,14 +1,14 @@
 {
   "tasks": [
     {
-      "title": "learn sql and bootstrap",
-      "description": "learn joins and union and do subqueries learn its functionality",
-      "id": "qyXJ0vAJY-8"
+      "title": "learn sql and bootsrap",
+      "description": "learn sql subqueries and joins with bootsrap utilites",
+      "id": "xuT-YUzGZbM"
     },
     {
       "title": "learn git and github",
-      "description": "learn git commands and push it in the empty repository",
-      "id": "_f0WfIlBjBg"
+      "description": "learn github commands and git how it work",
+      "id": "LmvSIi-Ezn0"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
