@@ -8,8 +8,8 @@ const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     const emailError = document.querySelector(".invalid-email");
     const passError = document.querySelector(".invalid-password");
 
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault(); // Stop form from refreshing the page
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault(); 
       
       let isValid = true;
 
@@ -34,9 +34,54 @@ const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
       }
 
       if (isValid) {
-        alert("Login successful! Welcome to TaskFlow.");
-        loginForm.reset();
-      }
+
+  try {
+
+    const response = await fetch("http://localhost:3000/users");
+
+    const users = await response.json();
+
+    const validUser = users.find((user) =>
+      user.email === emailInput.value.trim() &&
+      user.password === passwordInput.value
+    );
+
+    if (validUser) {
+
+      await Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        text: "Welcome to TaskFlow!",
+        timer: 2000
+      });
+
+      loginForm.reset();
+
+      window.location.href = "./index.html";
+
+    } else {
+
+      Swal.fire({
+        icon: "error",
+        title: "Login Failed",
+        text: "Invalid email or password"
+      });
+
+    }
+
+  } catch (error) {
+
+    Swal.fire({
+      icon: "error",
+      title: "Server Error",
+      text: "Unable to connect to database"
+    });
+
+    console.log(error);
+
+  }
+
+}
     });
 
     // --- THEME TOGGLE LOGIC ---

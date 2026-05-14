@@ -1,10 +1,8 @@
-//  Regex 
 const emailRegex = /^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$/;
 const passRegex  = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
 const userRegex  = /^[A-Za-z0-9@#_]+$/;
 const phoneRegex = /^\d{10}$/;
 
-//  Inputs 
 const userInput    = document.getElementById('userInput');
 const emailInput   = document.getElementById('emailInput');
 const passInput    = document.getElementById('passInput');
@@ -14,7 +12,6 @@ const dateInput    = document.getElementById('dateInput');
 const roleSelect   = document.getElementById('roleSelect');
 const addressInput = document.getElementById('addressInput');
 
-// Error Divs 
 const userError    = document.getElementById('invalid-username');
 const emailError   = document.getElementById('invalid-email');
 const passError    = document.getElementById('invalid-password');
@@ -24,7 +21,8 @@ const dateError    = document.getElementById('invalid-date');
 const roleError    = document.getElementById('invalid-role');
 const addressError = document.getElementById('invalid-address');
 
-// Helpers 
+const API = 'http://localhost:3000/users';
+
 function setError(input, errorDiv, message) {
   errorDiv.innerText = message;
   input.classList.add('is-invalid');
@@ -37,9 +35,8 @@ function clearError(input, errorDiv) {
   input.classList.add('is-valid');
 }
 
-// Form Submit
-document.getElementById('register-form').addEventListener('submit', (e) => {
-  e.preventDefault();
+
+document.getElementById('register').addEventListener('click', async () => {
   let isValid = true;
 
   // Username
@@ -89,7 +86,7 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
     clearError(confirmInput, confirmError);
   }
 
-  // Phone Number
+  // Phone
   if (numInput.value.trim() === '') {
     setError(numInput, numError, 'Phone number is required.');
     isValid = false;
@@ -137,33 +134,58 @@ document.getElementById('register-form').addEventListener('submit', (e) => {
     clearError(addressInput, addressError);
   }
 
-  // Success
   if (isValid) {
-  
-   Swal.fire({
-    icon: 'success',
-    title: 'Registered Successfully',
-    text: 'Welcome to Taskflow!',
-    confirmButtonText: 'Go to Login'
-  }).then(() => {
-    window.location.href = './login.html';  
-  });
-    
-  }
+    const userData = {
+      username: userInput.value.trim(),
+      email:    emailInput.value.trim(),
+      password: passInput.value,
+      phone:    numInput.value.trim(),
+      dob:      dateInput.value,
+      gender:   document.querySelector('input[name="gender"]:checked').value,
+      role:     roleSelect.value,
+      address:  addressInput.value.trim()
+    };
+
+    try {
+      const response = await fetch(API, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(userData)
+      });
+
+      if (response.ok) {
+        
+        await Swal.fire({
+          icon: 'success',
+          title: 'Registration Successful!',
+          text: 'Welcome to Taskflow. Redirecting to login...',
+          timer: 2000
+        });
+
+        window.location.href = './login.html';
+      } else {
+        throw new Error('Failed to save data');
+      }
+
+    } catch (err) {
+      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong while connecting to the server!',
+      });
+    }
+
+    } 
 });
 
-// Theme Toggle 
+// Theme Toggle
 const themeToggler = document.getElementById('themeToggler');
-    const themeIcon = document.getElementById('themeIcon');
-    const html = document.documentElement;
+const themeIcon    = document.getElementById('themeIcon');
+const html         = document.documentElement;
 
-    themeToggler.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-bs-theme');
-      if (currentTheme === 'light') {
-        html.setAttribute('data-bs-theme', 'dark');
-        themeIcon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
-      } else {
-        html.setAttribute('data-bs-theme', 'light');
-        themeIcon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
-      }
-    });
+themeToggler.addEventListener('click', () => {
+  const isDark = html.getAttribute('data-bs-theme') === 'dark';
+  html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
+  themeIcon.className = isDark ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill';
+});

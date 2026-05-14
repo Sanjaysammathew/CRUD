@@ -11,5 +11,62 @@
       "id": "LmvSIi-Ezn0"
     }
   ],
+  "users": [
+    {
+      "username": "Sanjay",
+      "email": "Sanjay05@gmail.com",
+      "password": "Sanjay@2005",
+      "phone": "9080624255",
+      "dob": "2005-07-20",
+      "gender": "male",
+      "role": "1",
+      "address": "tamil nadu coimbatore",
+      "id": "Vbc1VogGbc8"
+    },
+    {
+      "username": "Rohan",
+      "email": "Rohan05@gmail.com",
+      "password": "Rohan@05",
+      "phone": "9080624233",
+      "dob": "2006-07-21",
+      "gender": "male",
+      "role": "1",
+      "address": "tamil nadu coimbatore",
+      "id": "iCv5s8ZrfBw"
+    },
+    {
+      "username": "Vishal",
+      "email": "Vishal05@gmail.com",
+      "password": "Vishal@2005",
+      "phone": "9080624200",
+      "dob": "2005-07-20",
+      "gender": "male",
+      "role": "1",
+      "address": "tamil naduuu coimabtore",
+      "id": "1PNULbU_ZIY"
+    },
+    {
+      "username": "sam",
+      "email": "sam05@gmail.com",
+      "password": "Sanjay@2005",
+      "phone": "9080624255",
+      "dob": "2005-07-20",
+      "gender": "male",
+      "role": "1",
+      "address": "coimbatore",
+      "id": "7Mp5ZiloSJo"
+    },
+    {
+      "username": "Sastha",
+      "email": "Sastha05@gmail.com",
+      "password": "Sastha@05",
+      "phone": "9080624276",
+      "dob": "2004-05-23",
+      "gender": "male",
+      "role": "1",
+      "address": "tamil nadu coimbatore",
+      "id": "HNV7S0gVibY"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
