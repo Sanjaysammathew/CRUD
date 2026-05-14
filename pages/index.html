@@ -113,7 +113,29 @@
 
     </section>
 
+<section class="container mt-4 text-center">
 
+    <div class="d-flex justify-content-center gap-3">
+
+        <button class="btn btn-success px-4 py-2 rounded-pill">
+            Completed
+        </button>
+
+        <button class="btn btn-warning px-4 py-2 rounded-pill">
+            Pending
+        </button>
+
+        <button class="btn btn-danger px-4 py-2 rounded-pill">
+            Not Started
+        </button>
+
+        <button class="btn btn-dark px-4 py-2 rounded-pill">
+            All
+        </button>
+
+    </div>
+
+</section>
 
     <!-- TASK SECTION -->
 
@@ -195,8 +217,21 @@
 
                     </div>
 
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Due Date</label>
+                    <input type="date" class="form-control w-50 " id="taskDate">
                 </div>
 
+                 <div class="mb-3">
+                    <label class="form-label fw-bold">Status</label>
+                    <select class="form-select" id="taskPriority">
+                        <option selected disabled value="">Choose status...</option>
+                        <option value="completed">Completed</option>
+                        <option value="pending">Pending</option>
+                        <option value="Not started">Not Started</option>
+                    </select>
+                </div>
+                </div>
 
 
                 <div class="modal-footer">
@@ -279,8 +314,15 @@
 
                     </div>
 
+                      <div class="mb-3">
+                    <label class="form-label fw-bold"> Update Due Date</label>
+                    <input type="date" class="form-control w-50 " id="UpdatetaskDate">
                 </div>
 
+
+                </div>
+
+                 
 
 
                 <div class="modal-footer">
@@ -310,3 +352,4 @@
 </body>
 
 </html>
+

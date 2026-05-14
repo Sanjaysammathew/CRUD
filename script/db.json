@@ -1,14 +1,12 @@
 {
   "tasks": [
     {
-      "title": "learn sql and bootsrap",
-      "description": "learn sql subqueries and joins with bootsrap",
-      "id": "xuT-YUzGZbM"
-    },
-    {
-      "title": "learn git and github",
-      "description": "learn github commands and git how it work",
-      "id": "LmvSIi-Ezn0"
+      "title": "learn html",
+      "description": "learn html and css using css classes and hmt websites",
+      "dueDate": "2026-05-07",
+      "priority": "completed",
+      "createdAt": "14/5/2026",
+      "id": "2hhqEOIHlD0"
     }
   ],
   "users": [

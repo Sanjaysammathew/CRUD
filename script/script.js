@@ -15,6 +15,12 @@ async function addTask(){
 
     const desValue = desInput.value.trim()
 
+     const date =
+    document.getElementById('taskDate').value
+
+    const priority =
+    document.getElementById('taskPriority').value
+
     try{
 
         await fetch(API,{
@@ -28,7 +34,10 @@ async function addTask(){
             body:JSON.stringify({
 
                 title:value,
-                description:desValue
+                description:desValue,
+                dueDate:date,
+                priority:priority,
+                createdAt: new Date().toLocaleDateString()
 
             })
 
@@ -36,6 +45,7 @@ async function addTask(){
 
         input.value = ""
         desInput.value = ""
+
 
         fetchTasks()
 
@@ -75,7 +85,7 @@ async function fetchTasks(){
                 <div class="card p-3 shadow-lg border-0 h-100">
 
                     <span class="badge bg-primary w-25 mb-3">
-                        Work
+                        ${task.priority}
                     </span>
 
                     <h5 class="card-title fw-bold">
@@ -84,6 +94,13 @@ async function fetchTasks(){
 
                     <p class="card-text text-secondary">
                         ${task.description}
+                    </p>
+
+                       <p class="card-text text-secondary">
+                        Due Date: ${task.dueDate}
+                    </p>
+  <p class="card-text text-secondary">
+                       Created At: ${task.createdAt}
                     </p>
 
                     <div class="d-flex gap-3">
@@ -140,6 +157,8 @@ async function editTask(id){
     const updateDescription =
     document.getElementById('updateDescription')
 
+    const UpdatetaskDate=document.getElementById('UpdatetaskDate')
+
     const response =
     await fetch(`${API}/${id}`)
 
@@ -150,6 +169,8 @@ async function editTask(id){
 
     updateDescription.value =
     task.description
+
+    UpdatetaskDate.value = task.dueDate
 
     } catch(error){
         console.log(error)
@@ -176,6 +197,8 @@ async function updateTask(id){
     const updateDes=document.getElementById('updateDescription')
     const updateDescription=updateDes.value.trim()
 
+    const UpdatetaskDate=document.getElementById('UpdatetaskDate').value
+
     try{
       
         await fetch(`${API}/${id}`, {
@@ -188,7 +211,8 @@ async function updateTask(id){
 
             body: JSON.stringify({
                 title: updateValue,
-                description:updateDescription
+                description:updateDescription,
+                dueDate:UpdatetaskDate
             })
         });
           currentEditId = null;
