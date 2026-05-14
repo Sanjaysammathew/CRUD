@@ -1,0 +1,79 @@
+:root {
+      --primary-grad: linear-gradient(135deg, #0d9488 0%, #2dd4bf 100%);
+      --accent-teal: #0d9488;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+         background-color: var(--bs-tertiary-bg);
+      min-height: 100vh;
+    }
+
+    .brand-logo {
+      width: 50px;
+      height: 50px;
+      background: var(--primary-grad);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 16px rgba(13, 148, 136, 0.2);
+    }
+
+    .brand-logo i {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .brand-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--accent-teal);
+      letter-spacing: -0.5px;
+    }  
+
+    
+    .register-card {
+      width: 100%;
+      max-width: 550px; 
+      border: none;
+      border-radius: 20px;
+    }
+
+    .form-control:focus {
+      border-color: #2dd4bf;
+      box-shadow: 0 0 0 0.25rem rgba(45, 212, 191, 0.15);
+    }
+
+    .btn-teal {
+      background: var(--primary-grad);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-weight: 600;
+      border-radius: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-teal:hover {
+      color: white;
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .theme-toggle{
+      position: fixed;
+      left: 95%;
+      top: 20px;
+      border-radius: 35px;
+    }
+
+    .theme-toggle:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+    .card {
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 24px;
+    }

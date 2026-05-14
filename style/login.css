@@ -1,0 +1,95 @@
+ :root {
+      --primary-grad: linear-gradient(135deg, #0d9488 0%, #2dd4bf 100%);
+      --accent-teal: #0d9488;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bs-tertiary-bg);
+      transition: all 0.3s ease;
+    }
+
+    .auth-box {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Adjusted Brand Spacing */   .brand-logo {
+      width: 60px;
+      height: 60px;
+      background: var(--primary-grad);
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px; /* Added mb to logo */
+      box-shadow: 0 10px 20px rgba(13, 148, 136, 0.2);
+    }
+
+    .brand-logo i {
+      font-size: 1.8rem;
+      color: white;
+    }
+
+    .brand-title {
+      font-size: 2rem;
+      font-weight: 800;
+      text-align: center;
+      background: var(--primary-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 30px; /* Added mb to brand name */
+    }
+
+    .card {
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 24px;
+    }
+
+    .form-control {
+      padding: 12px;
+      border-radius: 10px;
+    }
+
+    .form-control:focus {
+      border-color: #2dd4bf;
+      box-shadow: 0 0 0 0.25rem rgba(45, 212, 191, 0.25);
+    }
+
+   
+    .invalid-email, .invalid-password {
+      font-size: 0.85rem;
+      color: #dc3545;
+      margin-top: 5px;
+      min-height: 1.2rem; 
+    }
+
+    .btn-main {
+      background: var(--primary-grad);
+      border: none;
+      color: white !important;
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+    }
+
+    .btn-main:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(13, 148, 136, 0.4);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;  
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
