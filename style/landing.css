@@ -1,0 +1,112 @@
+:root {
+  --primary-grad: linear-gradient(135deg, #0d9488 0%, #2dd4bf 100%);
+  --accent-color: #0d9488;
+}
+
+/* BODY */
+body {
+  font-family: 'Poppins', sans-serif;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* GRADIENT TEXT */
+.text-gradient {
+  background: var(--primary-grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.big-container{
+  padding-bottom: 80px;
+}
+
+/* NAVBAR */
+.nav-link {
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--accent-color);
+}
+
+.nav-register-btn {
+  padding: 10px 24px;
+  font-size: 0.95rem;
+}
+
+/* HERO */
+.hero-section {
+  padding: 120px 0;
+  background: var(--bs-tertiary-bg);
+}
+
+.hero-title {
+  max-width: 850px;
+  margin: auto;
+  line-height: 1.2;
+}
+
+.hero-text {
+  max-width: 650px;
+  font-size: 1.05rem;
+}
+
+.hero-btn {
+  padding: 14px 38px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* MAIN BUTTON */
+.btn-main {
+  background: var(--primary-grad);
+  border: none;
+  color: white !important;
+  font-weight: 600;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
+}
+
+.btn-main:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(13, 148, 136, 0.4);
+}
+
+/* OUTLINE BUTTON */
+.btn-outline-custom {
+  border: 2px solid #0d9488;
+  color: #0d9488;
+  font-weight: 600;
+  transition: 0.3s;
+  background: transparent;
+}
+
+.btn-outline-custom:hover {
+  background: var(--primary-grad);
+  border-color: transparent;
+  color: white !important;
+}
+
+/* CTA BUTTON */
+.cta-btn {
+  padding: 14px 40px;
+  font-size: 1rem;
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+
+  .hero-section {
+    padding: 90px 0;
+  }
+
+  .hero-title {
+    font-size: 2.4rem;
+  }
+
+  .hero-btn {
+    width: 100%;
+  }
+}

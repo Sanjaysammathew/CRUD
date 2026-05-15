@@ -1,101 +1,128 @@
 const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    const passRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+const passRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
 
-    const loginForm = document.getElementById("loginForm");
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-    
-    const emailError = document.querySelector(".invalid-email");
-    const passError = document.querySelector(".invalid-password");
+const loginForm = $("#loginForm");
+const emailInput = $("#email");
+const passwordInput = $("#password");
 
-    loginForm.addEventListener("submit", async (e) => {
-      e.preventDefault(); 
-      
-      let isValid = true;
+const emailError = $(".invalid-email");
+const passError = $(".invalid-password");
 
-      // Validate Email
-      if (!emailRegex.test(emailInput.value.trim())) {
-        emailError.innerText = "Please enter a valid email address.";
-        emailInput.style.borderColor = "#dc3545";
-        isValid = false;
-      } else {
-        emailError.innerText = "";
-        emailInput.style.borderColor = "";
-      }
+loginForm.on("submit", async function (e) {
 
-      // Validate Password
-      if (!passRegex.test(passwordInput.value)) {
-        passError.innerText = "Requires 8+ chars, 1 uppercase, 1 number & 1 symbol.";
-        passwordInput.style.borderColor = "#dc3545";
-        isValid = false;
-      } else {
-        passError.innerText = "";
-        passwordInput.style.borderColor = "";
-      }
+  e.preventDefault();
 
-      if (isValid) {
+  let isValid = true;
 
-  try {
+  // Validate Email
+  if (!emailRegex.test(emailInput.val().trim())) {
 
-    const response = await fetch("http://localhost:3000/users");
+    emailError.text("Please enter a valid email address.");
+    emailInput.css("borderColor", "#dc3545");
 
-    const users = await response.json();
+    isValid = false;
 
-    const validUser = users.find((user) =>
-      user.email === emailInput.value.trim() &&
-      user.password === passwordInput.value
-    );
+  } else {
 
-    if (validUser) {
-
-      await Swal.fire({
-        icon: "success",
-        title: "Login Successful",
-        text: "Welcome to TaskFlow!",
-        timer: 2000
-      });
-
-      loginForm.reset();
-
-      window.location.href = "./index.html";
-
-    } else {
-
-      Swal.fire({
-        icon: "error",
-        title: "Login Failed",
-        text: "Invalid email or password"
-      });
-
-    }
-
-  } catch (error) {
-
-    Swal.fire({
-      icon: "error",
-      title: "Server Error",
-      text: "Unable to connect to database"
-    });
-
-    console.log(error);
+    emailError.text("");
+    emailInput.css("borderColor", "");
 
   }
 
-}
-    });
+  // Validate Password
+  if (!passRegex.test(passwordInput.val())) {
 
-    // --- THEME TOGGLE LOGIC ---
-    const themeToggler = document.getElementById('themeToggler');
-    const themeIcon = document.getElementById('themeIcon');
-    const html = document.documentElement;
+    passError.text("Requires 8+ chars, 1 uppercase, 1 number & 1 symbol.");
+    passwordInput.css("borderColor", "#dc3545");
 
-    themeToggler.addEventListener('click', () => {
-      const currentTheme = html.getAttribute('data-bs-theme');
-      if (currentTheme === 'light') {
-        html.setAttribute('data-bs-theme', 'dark');
-        themeIcon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+    isValid = false;
+
+  } else {
+
+    passError.text("");
+    passwordInput.css("borderColor", "");
+
+  }
+
+  if (isValid) {
+
+    try {
+
+      const response = await fetch("http://localhost:3000/users");
+
+      const users = await response.json();
+
+      const validUser = users.find((user) =>
+        user.email === emailInput.val().trim() &&
+        user.password === passwordInput.val()
+      );
+
+      if (validUser) {
+
+        await Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          text: "Welcome to TaskFlow!",
+          timer: 2000
+        });
+
+        loginForm[0].reset();
+
+        window.location.href = "./index.html";
+
       } else {
-        html.setAttribute('data-bs-theme', 'light');
-        themeIcon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: "Invalid email or password"
+        });
+
       }
-    });
+
+    } catch (error) {
+
+      Swal.fire({
+        icon: "error",
+        title: "Server Error",
+        text: "Unable to connect to database"
+      });
+
+      console.log(error);
+
+    }
+
+  }
+
+});
+
+// --- THEME TOGGLE LOGIC ---
+
+const themeToggler = $("#themeToggler");
+const themeIcon = $("#themeIcon");
+const html = $("html");
+
+themeToggler.on("click", function () {
+
+  const currentTheme = html.attr("data-bs-theme");
+
+  if (currentTheme === "light") {
+
+    html.attr("data-bs-theme", "dark");
+
+    themeIcon
+      .removeClass("bi-moon-stars-fill")
+      .addClass("bi-sun-fill");
+
+  } else {
+
+    html.attr("data-bs-theme", "light");
+
+    themeIcon
+      .removeClass("bi-sun-fill")
+      .addClass("bi-moon-stars-fill");
+
+  }
+
+});
+

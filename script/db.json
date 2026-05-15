@@ -11,7 +11,7 @@
     },
     {
       "title": "learn bootstrap",
-      "description": "learnbootstrap classes with bootstrap utilites by Making HMT Clone",
+      "description": "learnbootstrap classes with bootstrap utilites by Making HMT Clones",
       "dueDate": "2026-07-20",
       "priority": "pending",
       "createdAt": "5/15/2026",
@@ -81,6 +81,17 @@
       "role": "1",
       "address": "tamil nadu coimbatore",
       "id": "HNV7S0gVibY"
+    },
+    {
+      "username": "Shawn",
+      "email": "Shawn05@gmail.com",
+      "password": "Shawn@05",
+      "phone": "9876543210",
+      "dob": "2005-07-19",
+      "gender": "male",
+      "role": "1",
+      "address": "Coimbatore tamil nadu",
+      "id": "uT1XhPejVQ0"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

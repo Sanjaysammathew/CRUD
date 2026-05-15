@@ -1,29 +1,25 @@
- :root {
-      --primary-grad: linear-gradient(135deg, #0d9488 0%, #2dd4bf 100%);
-      --accent-teal: #0d9488;
-    }
-.brand-title{
-color: var(--accent-teal);
+:root {
+    --primary-grad: linear-gradient(135deg, #0d9488 0%, #2dd4bf 100%);
+    --accent-teal: #0d9488;
 }
 
-
+.brand-title{
+    color: var(--accent-teal) !important;
+}
 
 body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-
 [data-bs-theme="light"] .text-white {
     color: #212529 !important;
 }
-
 
 [data-bs-theme="light"] .navbar {
     background-color: #f8f9fa !important;
     border-bottom: 1px solid #dee2e6;
 }
 
-[data-bs-theme="light"] .nav-link, 
-[data-bs-theme="light"] .brand-title {
+[data-bs-theme="light"] .nav-link {
     color: #000 !important;
 }
