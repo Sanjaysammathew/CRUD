@@ -2,7 +2,7 @@
   "tasks": [
     {
       "title": "learn html",
-      "description": "learn html semantic tags and non sematic tags",
+      "description": "learn html semantic tags and non sematic tags and learn html utlities",
       "dueDate": "2026-05-18",
       "priority": "completed",
       "createdAt": "5/15/2026",

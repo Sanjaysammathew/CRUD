@@ -5,3 +5,25 @@
 .brand-title{
 color: var(--accent-teal);
 }
+
+
+
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+[data-bs-theme="light"] .text-white {
+    color: #212529 !important;
+}
+
+
+[data-bs-theme="light"] .navbar {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #dee2e6;
+}
+
+[data-bs-theme="light"] .nav-link, 
+[data-bs-theme="light"] .brand-title {
+    color: #000 !important;
+}

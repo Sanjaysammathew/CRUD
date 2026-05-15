@@ -314,3 +314,34 @@ async function filterTasks(status){
 
 }
 fetchTasks()
+
+ const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.getElementById('themeIcon');
+const body = document.body;
+
+
+function applyTheme(theme) {
+    if (theme === 'light') {
+        document.documentElement.setAttribute('data-bs-theme', 'light');
+      
+        body.classList.replace('bg-black', 'bg-light');
+        themeIcon.innerText = '☀️'; 
+    } else {
+        document.documentElement.setAttribute('data-bs-theme', 'dark');
+        body.classList.replace('bg-light', 'bg-black');
+        themeIcon.innerText = '🌙';
+    }
+ 
+}
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+});
+
+
+window.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    applyTheme(savedTheme);
+});
