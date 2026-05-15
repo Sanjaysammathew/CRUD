@@ -2,11 +2,28 @@
   "tasks": [
     {
       "title": "learn html",
-      "description": "learn html and css using css classes and hmt websites",
-      "dueDate": "2026-05-07",
+      "description": "learn html semantic tags and non sematic tags",
+      "dueDate": "2026-05-18",
       "priority": "completed",
-      "createdAt": "14/5/2026",
-      "id": "2hhqEOIHlD0"
+      "createdAt": "5/15/2026",
+      "id": "dhCNOss1rZM",
+      "status": "completed"
+    },
+    {
+      "title": "learn bootstrap",
+      "description": "learnbootstrap classes with bootstrap utilites by Making HMT Clone",
+      "dueDate": "2026-07-20",
+      "priority": "pending",
+      "createdAt": "5/15/2026",
+      "id": "CD0gzRfKeSY"
+    },
+    {
+      "title": "learn sql",
+      "description": "Learn SQL window functions and SQL Queries and manipulate the data",
+      "dueDate": "2026-05-16",
+      "priority": "Not started",
+      "createdAt": "5/15/2026",
+      "id": "paQ_VEodrsg"
     }
   ],
   "users": [
