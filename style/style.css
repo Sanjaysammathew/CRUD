@@ -1,0 +1,7 @@
+ :root {
+      --primary-grad: linear-gradient(135deg, #0d9488 0%, #2dd4bf 100%);
+      --accent-teal: #0d9488;
+    }
+.brand-title{
+color: var(--accent-teal);
+}
