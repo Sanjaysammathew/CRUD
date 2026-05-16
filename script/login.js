@@ -59,6 +59,8 @@ loginForm.on("submit", async function (e) {
 
       if (validUser) {
 
+          localStorage.setItem("loggedInUser", JSON.stringify(validUser));
+
         await Swal.fire({
           icon: "success",
           title: "Login Successful",

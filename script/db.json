@@ -2,28 +2,21 @@
   "tasks": [
     {
       "title": "learn html",
-      "description": "learn html semantic tags and non sematic tags and learn html utlities",
-      "dueDate": "2026-05-18",
-      "priority": "completed",
-      "createdAt": "5/15/2026",
-      "id": "dhCNOss1rZM",
-      "status": "completed"
-    },
-    {
-      "title": "learn bootstrap",
-      "description": "learnbootstrap classes with bootstrap utilites by Making HMT Clones",
-      "dueDate": "2026-07-20",
+      "description": "learn html and css using semantic tags and use external css to design website",
+      "dueDate": "2026-05-21",
       "priority": "pending",
-      "createdAt": "5/15/2026",
-      "id": "CD0gzRfKeSY"
+      "createdAt": "16/5/2026",
+      "userId": "P2NnuNV0D94",
+      "id": "QrjOEHGI4mE"
     },
     {
-      "title": "learn sql",
-      "description": "Learn SQL window functions and SQL Queries and manipulate the datas",
-      "dueDate": "2026-05-16",
-      "priority": "Not started",
-      "createdAt": "5/15/2026",
-      "id": "paQ_VEodrsg"
+      "title": "learn SQl",
+      "description": "Learn Sql and learn DML DDL Statements using sql queries",
+      "dueDate": "2026-05-17",
+      "priority": "pending",
+      "createdAt": "16/5/2026",
+      "userId": "P2NnuNV0D94",
+      "id": "R9915f087R8"
     }
   ],
   "users": [
@@ -31,67 +24,23 @@
       "username": "Sanjay",
       "email": "Sanjay05@gmail.com",
       "password": "Sanjay@2005",
-      "phone": "9080624255",
+      "phone": "9080624277",
       "dob": "2005-07-20",
       "gender": "male",
       "role": "1",
       "address": "tamil nadu coimbatore",
-      "id": "Vbc1VogGbc8"
-    },
-    {
-      "username": "Rohan",
-      "email": "Rohan05@gmail.com",
-      "password": "Rohan@05",
-      "phone": "9080624233",
-      "dob": "2006-07-21",
-      "gender": "male",
-      "role": "1",
-      "address": "tamil nadu coimbatore",
-      "id": "iCv5s8ZrfBw"
-    },
-    {
-      "username": "Vishal",
-      "email": "Vishal05@gmail.com",
-      "password": "Vishal@2005",
-      "phone": "9080624200",
-      "dob": "2005-07-20",
-      "gender": "male",
-      "role": "1",
-      "address": "tamil naduuu coimabtore",
-      "id": "1PNULbU_ZIY"
-    },
-    {
-      "username": "sam",
-      "email": "sam05@gmail.com",
-      "password": "Sanjay@2005",
-      "phone": "9080624255",
-      "dob": "2005-07-20",
-      "gender": "male",
-      "role": "1",
-      "address": "coimbatore",
-      "id": "7Mp5ZiloSJo"
+      "id": "P2NnuNV0D94"
     },
     {
       "username": "Sastha",
       "email": "Sastha05@gmail.com",
       "password": "Sastha@05",
       "phone": "9080624276",
-      "dob": "2004-05-23",
+      "dob": "2005-07-20",
       "gender": "male",
-      "role": "1",
+      "role": "2",
       "address": "tamil nadu coimbatore",
-      "id": "HNV7S0gVibY"
-    },
-    {
-      "username": "Shawn",
-      "email": "Shawn05@gmail.com",
-      "password": "Shawn@05",
-      "phone": "9876543210",
-      "dob": "2005-07-19",
-      "gender": "male",
-      "role": "1",
-      "address": "Coimbatore tamil nadu",
-      "id": "uT1XhPejVQ0"
+      "id": "dksRRP58ENg"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

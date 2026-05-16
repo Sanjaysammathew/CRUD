@@ -2,6 +2,9 @@ const API = "http://localhost:3000/tasks"
 
 let editingId = 0
 
+const loggedInUser =
+JSON.parse(localStorage.getItem("loggedInUser"));
+
 
 async function addTask(){
 
@@ -37,8 +40,8 @@ async function addTask(){
                 description:desValue,
                 dueDate:date,
                 priority:priority,
-                createdAt: new Date().toLocaleDateString()
-
+                createdAt: new Date().toLocaleDateString(),
+                userId: loggedInUser.id
             })
 
         })
@@ -66,9 +69,12 @@ async function fetchTasks(){
         const response =
         await fetch(API)
 
-        const tasks =
-        await response.json()
+      const tasks = await response.json();
 
+const userTasks =
+tasks.filter(task =>
+task.userId === loggedInUser.id
+);
         const container =
         document.getElementById('taskContainer')
 
@@ -76,7 +82,7 @@ async function fetchTasks(){
         container.innerHTML = ""
 
 
-        tasks.forEach(task => {
+        userTasks.forEach(task => {
 
             container.innerHTML += `
 
@@ -243,8 +249,11 @@ async function filterTasks(status){
         const tasks =
         await response.json()
 
-        const filteredTasks =
-        tasks.filter(task => task.priority === status)
+       const filteredTasks =
+tasks.filter(task =>
+task.priority === status &&
+task.userId === loggedInUser.id
+)
 
         const container =
         document.getElementById('taskContainer')
