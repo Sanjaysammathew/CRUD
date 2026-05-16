@@ -1,22 +1,24 @@
 {
   "tasks": [
     {
-      "title": "learn html",
-      "description": "learn html and css using semantic tags and use external css to design website",
-      "dueDate": "2026-05-21",
-      "priority": "pending",
+      "title": "learn sql",
+      "description": "learn sqlqueries using dml and ddl statements",
+      "dueDate": "2026-05-18",
+      "priority": "Not started",
       "createdAt": "16/5/2026",
       "userId": "P2NnuNV0D94",
-      "id": "QrjOEHGI4mE"
+      "isDeleted": false,
+      "id": "pWQKtrPVXXw"
     },
     {
-      "title": "learn SQl",
-      "description": "Learn Sql and learn DML DDL Statements using sql queries",
-      "dueDate": "2026-05-17",
+      "title": "learn bootstrap",
+      "description": "learn bootstrap utilites and bootstrap classes",
+      "dueDate": "2026-05-18",
       "priority": "pending",
       "createdAt": "16/5/2026",
       "userId": "P2NnuNV0D94",
-      "id": "R9915f087R8"
+      "isDeleted": true,
+      "id": "68RlVn19Yc0"
     }
   ],
   "users": [

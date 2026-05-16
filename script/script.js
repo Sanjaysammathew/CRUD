@@ -41,7 +41,9 @@ async function addTask(){
                 dueDate:date,
                 priority:priority,
                 createdAt: new Date().toLocaleDateString(),
-                userId: loggedInUser.id
+                userId: loggedInUser.id,
+                isDeleted: false
+
             })
 
         })
@@ -71,9 +73,12 @@ async function fetchTasks(){
 
       const tasks = await response.json();
 
-const userTasks =
+     const userTasks =
 tasks.filter(task =>
-task.userId === loggedInUser.id
+
+task.userId === loggedInUser.id &&
+task.isDeleted === false
+
 );
         const container =
         document.getElementById('taskContainer')
@@ -188,14 +193,33 @@ document.getElementById('updateStatus')
 }
 
 async function deleteTask(id){
+
     try{
-     await fetch(`${API}/${id}`,{
-        method: "DELETE"
-     })
-     fetchTasks()
+
+        await fetch(`${API}/${id}`,{
+
+            method:"PATCH",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                isDeleted:true
+
+            })
+
+        })
+
+        fetchTasks()
+
     }catch(err){
-    console.log(err)
+
+        console.log(err)
+
     }
+
 }
 
 
