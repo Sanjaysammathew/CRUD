@@ -14,11 +14,41 @@
       "title": "learn bootstrap",
       "description": "learn bootstrap utilites and bootstrap classes",
       "dueDate": "2026-05-18",
-      "priority": "pending",
+      "priority": "completed",
       "createdAt": "16/5/2026",
       "userId": "P2NnuNV0D94",
       "isDeleted": true,
       "id": "68RlVn19Yc0"
+    },
+    {
+      "title": "learn Git and Github",
+      "description": "learn git and github using the merge conflict and respositries",
+      "dueDate": "2026-05-15",
+      "priority": "pending",
+      "createdAt": "16/5/2026",
+      "userId": "P2NnuNV0D94",
+      "isDeleted": false,
+      "id": "MAaPbycEImg"
+    },
+    {
+      "title": "learn html",
+      "description": "learn html using semantic tags and html  structure and html concepts",
+      "dueDate": "2026-05-06",
+      "priority": "completed",
+      "createdAt": "16/5/2026",
+      "userId": "P2NnuNV0D94",
+      "isDeleted": false,
+      "id": "YHj0c5LZWrI"
+    },
+    {
+      "title": "sasa",
+      "description": "assa",
+      "dueDate": "2026-05-20",
+      "priority": "completed",
+      "createdAt": "16/5/2026",
+      "userId": "P2NnuNV0D94",
+      "isDeleted": true,
+      "id": "g_s371DDkn0"
     }
   ],
   "users": [

@@ -273,10 +273,13 @@ async function filterTasks(status){
         const tasks =
         await response.json()
 
-       const filteredTasks =
+  const filteredTasks =
 tasks.filter(task =>
-task.priority === status &&
-task.userId === loggedInUser.id
+
+    task.priority === status &&
+    task.userId === loggedInUser.id &&
+    task.isDeleted === false
+
 )
 
         const container =
@@ -346,6 +349,176 @@ task.userId === loggedInUser.id
     }
 
 }
+async function fetchDeletedTasks(){
+
+    const response = await fetch(API)
+
+    const tasks = await response.json()
+
+    const deletedTasks =
+    tasks.filter(task =>
+
+        task.userId === loggedInUser.id &&
+        task.isDeleted === true
+
+    )
+    const container =
+        document.getElementById('taskContainer')
+
+        
+        container.innerHTML = ""
+
+
+        deletedTasks.forEach(task => {
+
+            container.innerHTML += `
+
+            <div class="col-md-4 col-12">
+
+                <div class="card p-3 shadow-lg border-0 h-100">
+
+                    <span class="badge bg-primary w-25 mb-3">
+                        ${task.priority}
+                    </span>
+
+                    <h5 class="card-title fw-bold">
+                        ${task.title}
+                    </h5>
+
+                    <p class="card-text text-secondary">
+                        ${task.description}
+                    </p>
+
+                       <p class="card-text text-secondary">
+                        Due Date: ${task.dueDate}
+                    </p>
+  <p class="card-text text-secondary">
+                       Created At: ${task.createdAt}
+                    </p>
+
+                    <div class="d-flex gap-3">
+
+                        <button
+                            class="btn btn-danger mt-2 w-50"
+                            onclick="restoreTask('${task.id}')"
+                        >
+
+                            Restore
+
+                        </button>
+
+
+              
+                    </div>
+
+                </div>
+
+            </div>
+
+            `
+
+        })
+         console.log(deletedTasks)
+
+    }
+
+    async function fetchOverDueTasks(){
+
+    try{
+
+        const response = await fetch(API)
+
+        const tasks = await response.json()
+
+        const today = new Date()
+
+        const overDueTasks = tasks.filter(task =>
+
+            task.userId === loggedInUser.id &&
+            task.isDeleted === false &&
+            new Date(task.dueDate) < today
+
+        )
+
+        const container =
+        document.getElementById('taskContainer')
+
+        container.innerHTML = ""
+
+        overDueTasks.forEach(task => {
+
+            container.innerHTML += `
+
+            <div class="col-md-4 col-12">
+
+                <div class="card p-3 shadow-lg border-0 h-100">
+
+                    <span class="badge bg-danger w-25 mb-3">
+                        Overdue
+                    </span>
+
+                    <h5 class="card-title fw-bold">
+                        ${task.title}
+                    </h5>
+
+                    <p class="card-text text-secondary">
+                        ${task.description}
+                    </p>
+
+                    <p class="card-text text-danger fw-bold">
+                        Due Date: ${task.dueDate}
+                    </p>
+
+                    <p class="card-text text-secondary">
+                        Created At: ${task.createdAt}
+                    </p>
+
+                </div>
+
+            </div>
+
+            `
+
+        })
+
+    }catch(error){
+
+        console.log(error)
+
+    }
+
+}
+
+async function restoreTask(id){
+
+    try{
+
+        await fetch(`${API}/${id}`,{
+
+            method:"PATCH",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                isDeleted:false
+
+            })
+
+        })
+
+        fetchTasks()
+
+    }catch(error){
+
+        console.log(error)
+
+    }
+
+}
+
 fetchTasks()
 
  const themeToggle = document.getElementById('themeToggle');
