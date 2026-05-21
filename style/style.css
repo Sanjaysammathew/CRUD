@@ -23,3 +23,19 @@ body {
 [data-bs-theme="light"] .nav-link {
     color: #000 !important;
 }
+
+
+#userProfileOffcanvas {
+    width: 280px !important; /* Forces a smaller, sleeker profile layout */
+}
+
+
+[data-bs-theme="light"] #userProfileOffcanvas h5,
+[data-bs-theme="light"] #userProfileOffcanvas h6 {
+    color: #212529 !important;
+}
+
+[data-bs-theme="dark"] #userProfileOffcanvas h5,
+[data-bs-theme="dark"] #userProfileOffcanvas h6 {
+    color: #ffffff !important;
+}

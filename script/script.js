@@ -552,7 +552,26 @@ window.addEventListener('DOMContentLoaded', () => {
     applyTheme(savedTheme);
 });
 
-document.addEventListener("click", () => {
-    localStorage.clear();
-    window.location.href = 'login.html';
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (loggedInUser) {
+        const displayName = loggedInUser.username ||  "User";
+        
+        const navElement = document.getElementById('navUsername');
+        const sideElement = document.getElementById('dropdownUsername');
+        
+        if (navElement) navElement.innerText = displayName;
+        if (sideElement) sideElement.innerText = displayName;
+    }
+});
+
+
+document.addEventListener('click', (e) => {
+    
+    if (e.target && (e.target.id === 'logoutBtn' || e.target.id === 'logout')) {
+        localStorage.clear();
+        window.location.href = 'login.html';
+    }
 });
