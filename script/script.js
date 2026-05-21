@@ -551,3 +551,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'dark';
     applyTheme(savedTheme);
 });
+
+document.addEventListener("click", () => {
+    localStorage.clear();
+    window.location.href = 'login.html';
+});
