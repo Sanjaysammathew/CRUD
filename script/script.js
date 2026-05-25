@@ -590,8 +590,6 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementById('profileAddress').innerText =
         loggedInUser.address || "N/A";
 
-        document.getElementById('profileId').innerText =
-        loggedInUser.id || "N/A";
     }
 
 });

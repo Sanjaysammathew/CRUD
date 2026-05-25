@@ -68,3 +68,7 @@ body {
 [data-bs-theme="light"] #userProfileOffcanvas .btn-close {
     filter: none;
 }
+
+.brand-title{
+    color:var(--accent-teal)
+}
