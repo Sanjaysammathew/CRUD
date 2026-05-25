@@ -554,17 +554,46 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-
 window.addEventListener('DOMContentLoaded', () => {
+
+    const savedTheme =
+    localStorage.getItem('theme') || 'dark';
+
+    applyTheme(savedTheme);
+
     if (loggedInUser) {
-        const displayName = loggedInUser.username ||  "User";
-        
-        const navElement = document.getElementById('navUsername');
-        const sideElement = document.getElementById('dropdownUsername');
-        
-        if (navElement) navElement.innerText = displayName;
-        if (sideElement) sideElement.innerText = displayName;
+
+        // Navbar name
+        document.getElementById('navUsername').innerText =
+        loggedInUser.username || "User";
+
+        // Offcanvas heading
+        document.getElementById('dropdownUsername').innerText =
+        loggedInUser.username || "User";
+
+        // Profile Details
+        document.getElementById('profileUsername').innerText =
+        loggedInUser.username || "N/A";
+
+        document.getElementById('profileEmail').innerText =
+        loggedInUser.email || "N/A";
+
+        document.getElementById('profilePhone').innerText =
+        loggedInUser.phone || "N/A";
+
+        document.getElementById('profileDob').innerText =
+        loggedInUser.dob || "N/A";
+
+        document.getElementById('profileGender').innerText =
+        loggedInUser.gender || "N/A";
+
+        document.getElementById('profileAddress').innerText =
+        loggedInUser.address || "N/A";
+
+        document.getElementById('profileId').innerText =
+        loggedInUser.id || "N/A";
     }
+
 });
 
 

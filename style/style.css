@@ -26,7 +26,7 @@ body {
 
 
 #userProfileOffcanvas {
-    width: 280px !important; /* Forces a smaller, sleeker profile layout */
+    width: 280px !important; 
 }
 
 
@@ -38,4 +38,33 @@ body {
 [data-bs-theme="dark"] #userProfileOffcanvas h5,
 [data-bs-theme="dark"] #userProfileOffcanvas h6 {
     color: #ffffff !important;
+}
+
+[data-bs-theme="light"] #userProfileOffcanvas {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+}
+
+
+[data-bs-theme="dark"] #userProfileOffcanvas {
+    background-color: #212529 !important;
+    color: #ffffff !important;
+}
+
+
+[data-bs-theme="light"] #userProfileOffcanvas .offcanvas-header {
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+
+[data-bs-theme="light"] #userProfileOffcanvas p,
+[data-bs-theme="light"] #userProfileOffcanvas span,
+[data-bs-theme="light"] #userProfileOffcanvas h4,
+[data-bs-theme="light"] #userProfileOffcanvas h5 {
+    color: #212529 !important;
+}
+
+
+[data-bs-theme="light"] #userProfileOffcanvas .btn-close {
+    filter: none;
 }

@@ -402,31 +402,139 @@
 
 
 <!-- OFFCANVAS SIDEBAR -->
-<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="userProfileOffcanvas" aria-labelledby="userProfileOffcanvasLabel">
-    <div class="offcanvas-header border-bottom border-secondary">
-        <h5 class="offcanvas-title d-flex align-items-center gap-2" id="userProfileOffcanvasLabel">
-            User Account
+<!-- OFFCANVAS SIDEBAR -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="userProfileOffcanvas">
+
+    <!-- HEADER -->
+    <div class="offcanvas-header border-bottom">
+
+        <h5 class="offcanvas-title fw-bold">
+            User Profile
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+        ></button>
+
     </div>
+
+    <!-- BODY -->
     <div class="offcanvas-body d-flex flex-column justify-content-between">
-        <div class="text-center py-4">
-            <div class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 75px; height: 75px;">
-                <span class="fs-1 text-white">👤</span>
+
+        <div>
+
+            <!-- PROFILE IMAGE -->
+            <div class="text-center mb-4">
+
+                <div
+                    class="bg-secondary rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                    style="width:90px; height:90px;"
+                >
+
+                    <span class="fs-1 text-white">
+                        👤
+                    </span>
+
+                </div>
+
+                <h4 class="fw-bold">
+                    <span id="dropdownUsername">
+                        User
+                    </span>
+                </h4>
+
+                <p class="text-muted small">
+                    Welcome back to TaskFlow
+                </p>
+
             </div>
-            <!-- This is where "Hi, Sanjay!" will display -->
-            <h4 class="text-white">Hi, <span id="dropdownUsername" class="text-danger">User</span>!</h4>
-            <p class="text-muted small">Welcome back to TaskFlow</p>
+
+            <!-- USER DETAILS CARD -->
+            <div class="card shadow-sm border-0 p-3">
+
+                <div class="mb-3">
+                    <small class="text-muted">
+                        Username
+                    </small>
+
+                    <h6 id="profileUsername" class="fw-bold">
+                        -
+                    </h6>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-muted">
+                        Email
+                    </small>
+
+                    <h6 id="profileEmail" class="fw-bold">
+                        -
+                    </h6>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-muted">
+                        Phone
+                    </small>
+
+                    <h6 id="profilePhone" class="fw-bold">
+                        -
+                    </h6>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-muted">
+                        Date of Birth
+                    </small>
+
+                    <h6 id="profileDob" class="fw-bold">
+                        -
+                    </h6>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-muted">
+                        Gender
+                    </small>
+
+                    <h6 id="profileGender"
+                        class="fw-bold text-capitalize">
+                        -
+                    </h6>
+                </div>
+
+                <div class="mb-3">
+                    <small class="text-muted">
+                        Address
+                    </small>
+
+                    <h6 id="profileAddress" class="fw-bold">
+                        -
+                    </h6>
+                </div>
+
+            </div>
+
         </div>
-        
-        <!-- Logout button at the bottom of the drawer -->
-        <div class="pb-3">
-            <button class="btn btn-outline-danger w-100 py-2 fw-bold" id="logoutBtn">
+
+        <!-- LOGOUT BUTTON -->
+        <div class="mt-4">
+
+            <button
+                class="btn btn-danger w-100 py-2 fw-bold"
+                id="logoutBtn"
+            >
                 Logout
             </button>
+
         </div>
+
     </div>
+
 </div>
+
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js">
     </script>

@@ -2,7 +2,7 @@
   "tasks": [
     {
       "title": "learn sql",
-      "description": "learn sqlqueries using dml and ddl statements",
+      "description": "learn sqlqueries using dml and ddl statements with sql example",
       "dueDate": "2026-05-18",
       "priority": "Not started",
       "createdAt": "16/5/2026",
