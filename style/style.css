@@ -211,6 +211,17 @@
 
 }
 
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav .nav-item,
+.navbar-nav .nav-link {
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 991px) {
 
     .navbar-collapse {

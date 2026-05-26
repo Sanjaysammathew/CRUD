@@ -468,8 +468,9 @@ async function fetchDeletedTasks(){
 
             task.userId === loggedInUser.id &&
             task.isDeleted === false &&
-            new Date(task.dueDate) < today
-
+            new Date(task.dueDate) < today &&
+            task.priority ==="pending"  ||
+            task.priority==="Not started"
         )
 
         const container =
@@ -505,7 +506,21 @@ async function fetchDeletedTasks(){
                         Created At: ${task.createdAt}
                     </p>
 
+                                        <div class="d-flex gap-3">
+
+                        <button
+                            class="btn btn-danger mt-2 w-50 overdue-btn"
+                            data-bs-toggle="modal"
+                            data-bs-target="#taskModalUpdate"
+                            onclick="editTask('${task.id}')"
+                        >
+                            Update
+                        </button>
+                    </div>
+
                 </div>
+
+                
 
             </div>
 
@@ -531,13 +546,9 @@ async function restoreTask(id){
 
         showCancelButton: true,
 
-        confirmButtonColor: "#14b8a6",
-        cancelButtonColor: "#ef4444",
-
         confirmButtonText: "Yes, Restore",
 
-        background: "#1e293b",
-        color: "#fff"
+      
 
     });
 
