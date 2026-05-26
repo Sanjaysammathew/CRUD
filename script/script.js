@@ -53,6 +53,12 @@ async function addTask(){
 
 
         fetchTasks()
+        const modal =
+bootstrap.Modal.getInstance(
+document.getElementById('taskModal')
+);
+
+modal.hide();
 
     }catch(error){
 
@@ -91,7 +97,7 @@ task.isDeleted === false
 
             container.innerHTML += `
 
-            <div class="col-md-4 col-12">
+            <div class="col-md-6 col-12 col-lg-4">
 
                 <div class="card p-3 shadow-lg border-0 h-100">
 
@@ -194,29 +200,49 @@ document.getElementById('updateStatus')
 
 async function deleteTask(id){
 
-    try{
+    const result = await Swal.fire({
 
-        await fetch(`${API}/${id}`,{
+        title: "Delete Task?",
+        text: "You can restore it later.",
+        icon: "warning",
 
-            method:"PATCH",
+        showCancelButton: true,
 
-            headers:{
-                "Content-Type":"application/json"
-            },
 
-            body:JSON.stringify({
+    });
 
-                isDeleted:true
+    if(result.isConfirmed){
 
-            })
+        try{
 
-        })
+            await fetch(`${API}/${id}`,{
 
-        fetchTasks()
+                method:"PATCH",
 
-    }catch(err){
+                headers:{
+                    "Content-Type":"application/json"
+                },
 
-        console.log(err)
+                body:JSON.stringify({
+                    isDeleted:true
+                })
+
+            });
+
+            fetchTasks();
+
+            Swal.fire({
+
+                title: "Deleted!",
+                text: "Task moved to deleted tasks.",
+                icon: "success",
+            });
+
+        }catch(err){
+
+            console.log(err);
+
+        }
 
     }
 
@@ -253,6 +279,12 @@ document.getElementById('updateStatus').value
         });
           currentEditId = null;
           fetchTasks()
+          const modal =
+bootstrap.Modal.getInstance(
+document.getElementById('taskModalUpdate')
+);
+
+modal.hide();
     }catch(err){
     console.log(err)
     }
@@ -291,7 +323,7 @@ tasks.filter(task =>
 
             container.innerHTML += `
 
-            <div class="col-md-4 col-12">
+            <div class="col-md-6 col-12 col-lg-4">
 
                 <div class="card p-3 shadow-lg border-0 h-100">
 
@@ -373,7 +405,7 @@ async function fetchDeletedTasks(){
 
             container.innerHTML += `
 
-            <div class="col-md-4 col-12">
+            <div class="col-md-6 col-12 col-lg-4">
 
                 <div class="card p-3 shadow-lg border-0 h-100">
 
@@ -449,7 +481,7 @@ async function fetchDeletedTasks(){
 
             container.innerHTML += `
 
-            <div class="col-md-4 col-12">
+            <div class="col-md-6 col-12 col-lg-4">
 
                 <div class="card p-3 shadow-lg border-0 h-100">
 
@@ -491,29 +523,64 @@ async function fetchDeletedTasks(){
 
 async function restoreTask(id){
 
-    try{
+    const result = await Swal.fire({
 
-        await fetch(`${API}/${id}`,{
+        title: "Restore Task?",
+        text: "Task will be moved back.",
+        icon: "question",
 
-            method:"PATCH",
+        showCancelButton: true,
 
-            headers:{
-                "Content-Type":"application/json"
-            },
+        confirmButtonColor: "#14b8a6",
+        cancelButtonColor: "#ef4444",
 
-            body:JSON.stringify({
+        confirmButtonText: "Yes, Restore",
 
-                isDeleted:false
+        background: "#1e293b",
+        color: "#fff"
 
-            })
+    });
 
-        })
+    if(result.isConfirmed){
 
-        fetchTasks()
+        try{
 
-    }catch(error){
+            await fetch(`${API}/${id}`,{
 
-        console.log(error)
+                method:"PATCH",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+
+                    isDeleted:false
+
+                })
+
+            });
+
+            fetchTasks();
+
+            Swal.fire({
+
+                title: "Restored!",
+                text: "Task restored successfully.",
+                icon: "success",
+
+                confirmButtonColor: "#14b8a6",
+
+                background: "#1e293b",
+                color: "#fff"
+
+            });
+
+        }catch(error){
+
+            console.log(error);
+
+        }
 
     }
 
