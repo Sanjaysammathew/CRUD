@@ -41,14 +41,14 @@
       "id": "YHj0c5LZWrI"
     },
     {
-      "title": "sasa",
-      "description": "assa",
-      "dueDate": "2026-05-20",
-      "priority": "completed",
-      "createdAt": "16/5/2026",
+      "title": "learn html",
+      "description": "learn git and github using the merge conflict and respositries\nlearn git and github using the merge conflict and respositries\n\nlearn git and github using the merge conflict and respositries",
+      "dueDate": "2026-05-29",
+      "priority": "Not started",
+      "createdAt": "27/5/2026",
       "userId": "P2NnuNV0D94",
       "isDeleted": true,
-      "id": "g_s371DDkn0"
+      "id": "aZijJ3vKsz8"
     }
   ],
   "users": [
@@ -73,6 +73,17 @@
       "role": "2",
       "address": "tamil nadu coimbatore",
       "id": "dksRRP58ENg"
+    },
+    {
+      "username": "Monisha",
+      "email": "Sanjay05@gmail.com",
+      "password": "@Moni180505",
+      "phone": "9080624277",
+      "dob": "2005-05-08",
+      "gender": "female",
+      "role": "2",
+      "address": "12, nethaji",
+      "id": "shPLbMzJ97U"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

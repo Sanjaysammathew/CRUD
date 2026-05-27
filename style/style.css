@@ -222,6 +222,17 @@
     align-items: center;
 }
 
+.btn-overdue-urgent {
+    background: #ef4444 !important; /* Clean Crimson Red */
+    color: white !important;
+    box-shadow: 0 4px 14px rgba(239, 68, 68, 0.2) !important;
+}
+
+.btn-overdue-urgent:hover {
+    background: #dc2626 !important; /* Deeper Darker Red on Hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(239, 68, 68, 0.3) !important;
+}
 @media (max-width: 991px) {
 
     .navbar-collapse {

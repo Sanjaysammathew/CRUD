@@ -24,6 +24,30 @@ async function addTask(){
     const priority =
     document.getElementById('taskPriority').value
 
+    const today = new Date().toISOString().split("T")[0];
+
+if(date < today){
+
+    Swal.fire({
+        title: "Invalid Due Date",
+        text: "Due date cannot be in the past!",
+        icon: "error",
+        confirmButtonColor: "#ef4444"
+    });
+
+    return;
+}
+
+    if (!value || !desValue || !date || !priority) {
+        Swal.fire({
+            title: "Missing Fields",
+            text: "Please fill out the title, description, due date, and status!",
+            icon: "warning",
+            confirmButtonColor: "#14b8a6"
+        });
+        return; // Stop the execution here so it won't hit the database
+    }
+
     try{
 
         await fetch(API,{
@@ -93,64 +117,49 @@ task.isDeleted === false
         container.innerHTML = ""
 
 
-        userTasks.forEach(task => {
-
-            container.innerHTML += `
-
-            <div class="col-md-6 col-12 col-lg-4">
-
-                <div class="card p-3 shadow-lg border-0 h-100">
-
-                    <span class="badge bg-primary w-25 mb-3">
-                        ${task.priority}
-                    </span>
-
-                    <h5 class="card-title fw-bold">
-                        ${task.title}
-                    </h5>
-
-                    <p class="card-text text-secondary">
-                        ${task.description}
-                    </p>
-
-                       <p class="card-text text-secondary">
-                        Due Date: ${task.dueDate}
-                    </p>
-  <p class="card-text text-secondary">
-                       Created At: ${task.createdAt}
-                    </p>
-
-                    <div class="d-flex gap-3">
-
-                        <button
-                            class="btn btn-dark mt-2 w-50"
-                            data-bs-toggle="modal"
-                            data-bs-target="#taskModalUpdate"
-                            onclick="editTask('${task.id}')"
-                        >
-
-                            Update
-
-                        </button>
-
-
-                        <button
-                            class="btn btn-danger mt-2 w-50" onclick="deleteTask('${task.id}')"
-                        >
-
-                            Delete
-
-                        </button>
-
-                    </div>
-
-                </div>
-
+       // Replace the innerHTML loop inside fetchTasks and filterTasks with this:
+userTasks.forEach(task => {
+    container.innerHTML += `
+    <div class="col-md-6 col-12 col-lg-4 d-flex align-items-stretch mb-4">
+        <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
+            <div class="flex-grow-1">
+                <span class="badge bg-primary w-25 mb-3">
+                    ${task.priority}
+                </span>
+                <h5 class="card-title fw-bold text-truncate-2">
+                    ${task.title}
+                </h5>
+                <p class="card-text text-secondary text-break">
+                    ${task.description}
+                </p>
+                <p class="card-text text-secondary mb-1">
+                    <small>Due Date: ${task.dueDate}</small>
+                </p>
+                <p class="card-text text-secondary mb-3">
+                    <small>Created At: ${task.createdAt}</small>
+                </p>
             </div>
-
-            `
-
-        })
+            
+            <div class="d-flex gap-2 mt-auto w-100">
+                <button
+                    class="btn btn-dark d-flex align-items-center justify-content-center gap-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#taskModalUpdate"
+                    onclick="editTask('${task.id}')"
+                >
+                    <i class="bi bi-pencil-square"></i> Update
+                </button>
+                <button
+                    class="btn btn-danger d-flex align-items-center justify-content-center gap-2" 
+                    onclick="deleteTask('${task.id}')"
+                >
+                    <i class="bi bi-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+    `;
+});
 
     }catch(error){
 
@@ -260,6 +269,20 @@ async function updateTask(id){
     const updateStatus =
 document.getElementById('updateStatus').value
 
+const today = new Date().toISOString().split("T")[0];
+
+if(UpdatetaskDate < today){
+
+    Swal.fire({
+        title: "Invalid Due Date",
+        text: "Due date cannot be in the past!",
+        icon: "error",
+        confirmButtonColor: "#ef4444"
+    });
+
+    return;
+}
+
     try{
       
         await fetch(`${API}/${id}`, {
@@ -319,61 +342,49 @@ tasks.filter(task =>
 
         container.innerHTML = ""
 
-        filteredTasks.forEach(task => {
-
-            container.innerHTML += `
-
-            <div class="col-md-6 col-12 col-lg-4">
-
-                <div class="card p-3 shadow-lg border-0 h-100">
-
-                    <span class="badge bg-primary w-25 mb-3">
-                        ${task.priority}
-                    </span>
-
-                    <h5 class="card-title fw-bold">
-                        ${task.title}
-                    </h5>
-
-                    <p class="card-text text-secondary">
-                        ${task.description}
-                    </p>
-
-                    <p class="card-text text-secondary">
-                        Due Date: ${task.dueDate}
-                    </p>
-
-                    <p class="card-text text-secondary">
-                        Created At: ${task.createdAt}
-                    </p>
-
-                    <div class="d-flex gap-3">
-
-                        <button
-                            class="btn btn-dark mt-2 w-50"
-                            data-bs-toggle="modal"
-                            data-bs-target="#taskModalUpdate"
-                            onclick="editTask('${task.id}')"
-                        >
-                            Update
-                        </button>
-
-                        <button
-                            class="btn btn-danger mt-2 w-50"
-                            onclick="deleteTask('${task.id}')"
-                        >
-                            Delete
-                        </button>
-
-                    </div>
-
-                </div>
-
+ // Replace the innerHTML loop inside fetchTasks and filterTasks with this:
+filteredTasks.forEach(task => {
+    container.innerHTML += `
+    <div class="col-md-6 col-12 col-lg-4 d-flex align-items-stretch mb-4">
+        <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
+            <div class="flex-grow-1">
+                <span class="badge bg-primary w-25 mb-3">
+                    ${task.priority}
+                </span>
+                <h5 class="card-title fw-bold text-truncate-2">
+                    ${task.title}
+                </h5>
+                <p class="card-text text-secondary text-break">
+                    ${task.description}
+                </p>
+                <p class="card-text text-secondary mb-1">
+                    <small>Due Date: ${task.dueDate}</small>
+                </p>
+                <p class="card-text text-secondary mb-3">
+                    <small>Created At: ${task.createdAt}</small>
+                </p>
             </div>
-
-            `
-        })
-
+            
+            <div class="d-flex gap-2 mt-auto w-100">
+                <button
+                    class="btn btn-dark d-flex align-items-center justify-content-center gap-2"
+                    data-bs-toggle="modal"
+                    data-bs-target="#taskModalUpdate"
+                    onclick="editTask('${task.id}')"
+                >
+                    <i class="bi bi-pencil-square"></i> Update
+                </button>
+                <button
+                    class="btn btn-danger d-flex align-items-center justify-content-center gap-2" 
+                    onclick="deleteTask('${task.id}')"
+                >
+                    <i class="bi bi-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+    `;
+});
     }catch(error){
 
         console.log(error)
@@ -401,139 +412,101 @@ async function fetchDeletedTasks(){
         container.innerHTML = ""
 
 
-        deletedTasks.forEach(task => {
-
-            container.innerHTML += `
-
-            <div class="col-md-6 col-12 col-lg-4">
-
-                <div class="card p-3 shadow-lg border-0 h-100">
-
-                    <span class="badge bg-primary w-25 mb-3">
-                        ${task.priority}
-                    </span>
-
-                    <h5 class="card-title fw-bold">
-                        ${task.title}
-                    </h5>
-
-                    <p class="card-text text-secondary">
-                        ${task.description}
-                    </p>
-
-                       <p class="card-text text-secondary">
-                        Due Date: ${task.dueDate}
-                    </p>
-  <p class="card-text text-secondary">
-                       Created At: ${task.createdAt}
-                    </p>
-
-                    <div class="d-flex gap-3">
-
-                        <button
-                            class="btn btn-danger mt-2 w-50"
-                            onclick="restoreTask('${task.id}')"
-                        >
-
-                            Restore
-
-                        </button>
-
-
-              
-                    </div>
-
-                </div>
-
+      deletedTasks.forEach(task => {
+    container.innerHTML += `
+    <div class="col-md-6 col-12 col-lg-4 d-flex align-items-stretch mb-4">
+        <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
+            <div class="flex-grow-1">
+                <span class="badge bg-primary w-25 mb-3">
+                    ${task.priority}
+                </span>
+                <h5 class="card-title fw-bold text-truncate-2">
+                    ${task.title}
+                </h5>
+                <p class="card-text text-secondary text-break">
+                    ${task.description}
+                </p>
+                <p class="card-text text-secondary mb-1">
+                    <small>Due Date: ${task.dueDate}</small>
+                </p>
+                <p class="card-text text-secondary mb-3">
+                    <small>Created At: ${task.createdAt}</small>
+                </p>
             </div>
-
-            `
-
-        })
+            <div class="d-flex gap-3 mt-auto">
+                <button
+                    class="btn btn-danger w-100"
+                    onclick="restoreTask('${task.id}')"
+                >
+                    Restore
+                </button>
+            </div>
+        </div>
+    </div>
+    `;
+});
          console.log(deletedTasks)
 
     }
 
-    async function fetchOverDueTasks(){
+  async function fetchOverDueTasks(){
 
-    try{
+    try {
 
         const response = await fetch(API)
-
         const tasks = await response.json()
-
         const today = new Date()
 
         const overDueTasks = tasks.filter(task =>
-
             task.userId === loggedInUser.id &&
             task.isDeleted === false &&
             new Date(task.dueDate) < today &&
-            task.priority ==="pending"  ||
-            task.priority==="Not started"
+            (task.priority === "pending" || task.priority === "Not started")
         )
 
-        const container =
-        document.getElementById('taskContainer')
-
+        const container = document.getElementById('taskContainer')
         container.innerHTML = ""
-
-        overDueTasks.forEach(task => {
-
-            container.innerHTML += `
-
-            <div class="col-md-6 col-12 col-lg-4">
-
-                <div class="card p-3 shadow-lg border-0 h-100">
-
-                    <span class="badge bg-danger w-25 mb-3">
-                        Overdue
-                    </span>
-
-                    <h5 class="card-title fw-bold">
-                        ${task.title}
-                    </h5>
-
-                    <p class="card-text text-secondary">
-                        ${task.description}
-                    </p>
-
-                    <p class="card-text text-danger fw-bold">
-                        Due Date: ${task.dueDate}
-                    </p>
-
-                    <p class="card-text text-secondary">
-                        Created At: ${task.createdAt}
-                    </p>
-
-                                        <div class="d-flex gap-3">
-
-                        <button
-                            class="btn btn-danger mt-2 w-50 overdue-btn"
-                            data-bs-toggle="modal"
-                            data-bs-target="#taskModalUpdate"
-                            onclick="editTask('${task.id}')"
-                        >
-                            Update
-                        </button>
-                    </div>
-
-                </div>
-
-                
-
+    // Replace the innerHTML loop inside fetchOverDueTasks with this:
+overDueTasks.forEach(task => {
+    container.innerHTML += `
+    <div class="col-md-6 col-12 col-lg-4 d-flex align-items-stretch mb-4">
+        <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
+            <div class="flex-grow-1">
+                <span class="badge bg-danger w-25 mb-3">
+                    Overdue
+                </span>
+                <h5 class="card-title fw-bold text-truncate-2">
+                    ${task.title}
+                </h5>
+                <p class="card-text text-secondary text-break">
+                    ${task.description}
+                </p>
+                <p class="card-text text-danger fw-bold mb-1">
+                    <small>Due Date: ${task.dueDate}</small>
+                </p>
+                <p class="card-text text-secondary mb-3">
+                    <small>Created At: ${task.createdAt}</small>
+                </p>
             </div>
-
-            `
-
-        })
-
-    }catch(error){
-
+            <div class="row g-2 mt-auto w-100 m-0">
+                <div class="col-12 p-0">
+                    <button
+                        class="btn btn-overdue-urgent w-100 d-flex align-items-center justify-content-center gap-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#taskModalUpdate"
+                        onclick="editTask('${task.id}')"
+                    >
+                        <i class="bi bi-pencil-square"></i> Update Overdue Task
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+});
+    } catch(error) {
         console.log(error)
-
     }
-
 }
 
 async function restoreTask(id){
@@ -619,9 +592,17 @@ function applyTheme(theme) {
 }
 
 themeToggle.addEventListener('click', () => {
-    const currentTheme = document.documentElement.getAttribute('data-bs-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+    const currentTheme =
+    document.documentElement.getAttribute('data-bs-theme');
+
+    const newTheme =
+    currentTheme === 'dark' ? 'light' : 'dark';
+
     applyTheme(newTheme);
+
+    localStorage.setItem('theme', newTheme);
+
 });
 
 
@@ -674,9 +655,24 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('click', (e) => {
-    
-    if (e.target && (e.target.id === 'logoutBtn' || e.target.id === 'logout')) {
-        localStorage.clear();
-        window.location.href = 'login.html';
+    if (e.target && (e.target.id === 'logoutBtn' || e.target.id === 'logout' || e.target.closest('#logoutBtn'))) {
+        
+        Swal.fire({
+            title: "Logout?",
+            text: "Are you sure you want to log out of TaskFlow?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Yes, Logout",
+            cancelButtonText: "Stay Logged In",
+            confirmButtonColor: "#ef4444", 
+            cancelButtonColor: "#14b8a6",  
+            background: document.documentElement.getAttribute('data-bs-theme') === 'dark' ? '#1e293b' : '#ffffff',
+            color: document.documentElement.getAttribute('data-bs-theme') === 'dark' ? '#fff' : '#000'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.clear();
+                window.location.href = 'login.html';
+            }
+        });
     }
 });
