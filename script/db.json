@@ -84,6 +84,17 @@
       "role": "2",
       "address": "12, nethaji",
       "id": "shPLbMzJ97U"
+    },
+    {
+      "username": "vishal",
+      "email": "vishal05@gmail.com",
+      "password": "Vishal@05",
+      "phone": "9876543210",
+      "dob": "2005-05-21",
+      "gender": "male",
+      "role": "2",
+      "address": "12, nethaji nagar cbe",
+      "id": "cwfnEGFp5sI"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

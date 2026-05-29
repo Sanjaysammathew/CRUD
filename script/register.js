@@ -179,13 +179,40 @@ document.getElementById('register').addEventListener('click', async () => {
     } 
 });
 
+
+
 // Theme Toggle
 const themeToggler = document.getElementById('themeToggler');
-const themeIcon    = document.getElementById('themeIcon');
-const html         = document.documentElement;
+const themeIcon = document.getElementById('themeIcon');
+const html = document.documentElement;
 
+// Load saved theme
+const savedTheme = localStorage.getItem('theme') || 'dark';
+
+html.setAttribute('data-bs-theme', savedTheme);
+
+themeIcon.className =
+  savedTheme === 'dark'
+    ? 'bi bi-sun-fill'
+    : 'bi bi-moon-stars-fill';
+
+// Toggle theme
 themeToggler.addEventListener('click', () => {
-  const isDark = html.getAttribute('data-bs-theme') === 'dark';
-  html.setAttribute('data-bs-theme', isDark ? 'light' : 'dark');
-  themeIcon.className = isDark ? 'bi bi-moon-stars-fill' : 'bi bi-sun-fill';
+
+  const isDark =
+    html.getAttribute('data-bs-theme') === 'dark';
+
+  const newTheme =
+    isDark ? 'light' : 'dark';
+
+  html.setAttribute('data-bs-theme', newTheme);
+
+  themeIcon.className =
+    isDark
+      ? 'bi bi-moon-stars-fill'
+      : 'bi bi-sun-fill';
+
+  // Save theme
+  localStorage.setItem('theme', newTheme);
+
 });

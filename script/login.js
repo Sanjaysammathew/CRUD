@@ -104,27 +104,46 @@ const themeToggler = $("#themeToggler");
 const themeIcon = $("#themeIcon");
 const html = $("html");
 
+// Load saved theme when page opens
+const savedTheme = localStorage.getItem("theme") || "dark";
+
+html.attr("data-bs-theme", savedTheme);
+
+if (savedTheme === "light") {
+    themeIcon
+        .removeClass("bi-sun-fill")
+        .addClass("bi-moon-stars-fill");
+} else {
+    themeIcon
+        .removeClass("bi-moon-stars-fill")
+        .addClass("bi-sun-fill");
+}
+
+// Toggle Theme
 themeToggler.on("click", function () {
 
-  const currentTheme = html.attr("data-bs-theme");
+    const currentTheme = html.attr("data-bs-theme");
 
-  if (currentTheme === "light") {
+    if (currentTheme === "light") {
 
-    html.attr("data-bs-theme", "dark");
+        html.attr("data-bs-theme", "dark");
 
-    themeIcon
-      .removeClass("bi-moon-stars-fill")
-      .addClass("bi-sun-fill");
+        themeIcon
+            .removeClass("bi-moon-stars-fill")
+            .addClass("bi-sun-fill");
 
-  } else {
+        localStorage.setItem("theme", "dark");
 
-    html.attr("data-bs-theme", "light");
+    } else {
 
-    themeIcon
-      .removeClass("bi-sun-fill")
-      .addClass("bi-moon-stars-fill");
+        html.attr("data-bs-theme", "light");
 
-  }
+        themeIcon
+            .removeClass("bi-sun-fill")
+            .addClass("bi-moon-stars-fill");
+
+        localStorage.setItem("theme", "light");
+    }
 
 });
 
