@@ -283,6 +283,18 @@ if(UpdatetaskDate < today){
     return;
 }
 
+
+    if (!updateValue || !updateDescription || !UpdatetaskDate || !updateStatus) {
+        Swal.fire({
+            title: "Missing Fields",
+            text: "Please fill out the title, description, due date, and status!",
+            icon: "warning",
+            confirmButtonColor: "#14b8a6"
+        });
+        return; // Stop the execution here so it won't hit the database
+    }
+
+
     try{
       
         await fetch(`${API}/${id}`, {
@@ -670,9 +682,17 @@ document.addEventListener('click', (e) => {
             color: document.documentElement.getAttribute('data-bs-theme') === 'dark' ? '#fff' : '#000'
         }).then((result) => {
             if (result.isConfirmed) {
-                localStorage.clear();
+                localStorage.removeItem('loggedInUser');
                 window.location.href = 'login.html';
             }
         });
     }
 });
+
+function setActiveFilter(btn, activeClass) {
+    document.querySelectorAll('.filter-btn').forEach(button => {
+        button.classList.remove('bg-primary', 'bg-success', 'bg-warning', 'bg-danger', 'text-white');
+    });
+    
+    btn.classList.add(activeClass, 'text-white');
+}

@@ -1,10 +1,10 @@
 {
   "tasks": [
     {
-      "title": "learn sql",
-      "description": "learn sqlqueries using dml and ddl statements with sql examples",
-      "dueDate": "2026-05-18",
-      "priority": "Not started",
+      "title": "learn html",
+      "description": "learn html with bootstrap utilites and html class and real time \nexample",
+      "dueDate": "2026-05-30",
+      "priority": "pending",
       "createdAt": "16/5/2026",
       "userId": "P2NnuNV0D94",
       "isDeleted": false,
@@ -49,6 +49,16 @@
       "userId": "P2NnuNV0D94",
       "isDeleted": true,
       "id": "aZijJ3vKsz8"
+    },
+    {
+      "title": "Task1",
+      "description": "Testind task1",
+      "dueDate": "2026-05-30",
+      "priority": "Not started",
+      "createdAt": "29/5/2026",
+      "userId": "ppA1EfiJhwc",
+      "isDeleted": true,
+      "id": "uL-L-zyPa4s"
     }
   ],
   "users": [
@@ -84,6 +94,39 @@
       "role": "2",
       "address": "12, nethaji nagar cbe",
       "id": "cwfnEGFp5sI"
+    },
+    {
+      "username": "Monisha",
+      "email": "monisha05@gmail.com",
+      "password": "Monisha@05",
+      "phone": "9080624277",
+      "dob": "2005-05-18",
+      "gender": "female",
+      "role": "2",
+      "address": "12, nethaji nagar coimbatore",
+      "id": "3vAXiB1247k"
+    },
+    {
+      "username": "Seeli343",
+      "email": "seeli@gmail.com",
+      "password": "Seeli@123",
+      "phone": "6789067878",
+      "dob": "2000-05-21",
+      "gender": "female",
+      "role": "2",
+      "address": "yuyuyu Eral",
+      "id": "ppA1EfiJhwc"
+    },
+    {
+      "username": "Ramesh",
+      "email": "Ramesh05@gmail.com",
+      "password": "Sanjay@05",
+      "phone": "9080624277",
+      "dob": "2005-07-20",
+      "gender": "male",
+      "role": "3",
+      "address": "12, nethaji nagar coimbatore",
+      "id": "884jrCfLRiw"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

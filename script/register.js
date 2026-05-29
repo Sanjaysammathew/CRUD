@@ -11,6 +11,7 @@ const numInput     = document.getElementById('num');
 const dateInput    = document.getElementById('dateInput');
 const roleSelect   = document.getElementById('roleSelect');
 const addressInput = document.getElementById('addressInput');
+const termsCheck   = document.getElementById('termsCheck');
 
 const userError    = document.getElementById('invalid-username');
 const emailError   = document.getElementById('invalid-email');
@@ -36,175 +37,244 @@ function clearError(input, errorDiv) {
 }
 
 
-document.getElementById('register').addEventListener('click', async () => {
-  let isValid = true;
 
-  // Username
-  if (userInput.value.trim() === '') {
+function validateUsername() {
+  const value = userInput.value.trim();
+
+  if (value === '') {
     setError(userInput, userError, 'Username is required.');
-    isValid = false;
-  } else if (userInput.value.trim().length < 3) {
+    return false;
+  }
+
+  if (value.length < 3) {
     setError(userInput, userError, 'Username must be at least 3 characters.');
-    isValid = false;
-  } else if (!userRegex.test(userInput.value.trim())) {
+    return false;
+  }
+
+  if (!userRegex.test(value)) {
     setError(userInput, userError, 'Only letters, numbers, @, #, _ are allowed.');
-    isValid = false;
-  } else {
-    clearError(userInput, userError);
+    return false;
   }
 
-  // Email
-  if (emailInput.value.trim() === '') {
+  clearError(userInput, userError);
+  return true;
+}
+
+function validateEmail() {
+  const value = emailInput.value.trim();
+
+  if (value === '') {
     setError(emailInput, emailError, 'Email is required.');
-    isValid = false;
-  } else if (!emailRegex.test(emailInput.value.trim())) {
+    return false;
+  }
+
+  if (!emailRegex.test(value)) {
     setError(emailInput, emailError, 'Please enter a valid email address.');
-    isValid = false;
-  } else {
-    clearError(emailInput, emailError);
+    return false;
   }
 
-  // Password
-  if (passInput.value === '') {
+  clearError(emailInput, emailError);
+  return true;
+}
+
+function validatePassword() {
+  const value = passInput.value;
+
+  if (value === '') {
     setError(passInput, passError, 'Password is required.');
-    isValid = false;
-  } else if (!passRegex.test(passInput.value)) {
-    setError(passInput, passError, 'Min 8 chars with uppercase, lowercase, number & symbol.');
-    isValid = false;
-  } else {
-    clearError(passInput, passError);
+    return false;
   }
 
-  // Confirm Password
+  if (!passRegex.test(value)) {
+    setError(
+      passInput,
+      passError,
+      'Min 8 chars with uppercase, lowercase, number & symbol.'
+    );
+    return false;
+  }
+
+  clearError(passInput, passError);
+  return true;
+}
+
+function validateConfirmPassword() {
   if (confirmInput.value === '') {
     setError(confirmInput, confirmError, 'Please confirm your password.');
-    isValid = false;
-  } else if (confirmInput.value !== passInput.value) {
+    return false;
+  }
+
+  if (confirmInput.value !== passInput.value) {
     setError(confirmInput, confirmError, 'Passwords do not match.');
-    isValid = false;
-  } else {
-    clearError(confirmInput, confirmError);
+    return false;
   }
 
-  // Phone
-  if (numInput.value.trim() === '') {
+  clearError(confirmInput, confirmError);
+  return true;
+}
+
+function validatePhone() {
+  const value = numInput.value.trim();
+
+  if (value === '') {
     setError(numInput, numError, 'Phone number is required.');
-    isValid = false;
-  } else if (!phoneRegex.test(numInput.value.trim())) {
-    setError(numInput, numError, 'Enter a valid 10-digit phone number.');
-    isValid = false;
-  } else {
-    clearError(numInput, numError);
+    return false;
   }
 
-  // Birth Date
+  if (!phoneRegex.test(value)) {
+    setError(numInput, numError, 'Enter a valid 10-digit phone number.');
+    return false;
+  }
+
+  clearError(numInput, numError);
+  return true;
+}
+
+function validateDate() {
   if (dateInput.value === '') {
     setError(dateInput, dateError, 'Birth date is required.');
-    isValid = false;
-  } else {
-    const today = new Date();
-    const birth = new Date(dateInput.value);
-    let age = today.getFullYear() - birth.getFullYear();
-    const m = today.getMonth() - birth.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
-    if (age < 13) {
-      setError(dateInput, dateError, 'You must be at least 13 years old.');
-      isValid = false;
-    } else {
-      clearError(dateInput, dateError);
-    }
+    return false;
   }
 
-  // Role
+  const today = new Date();
+  const birth = new Date(dateInput.value);
+
+  let age = today.getFullYear() - birth.getFullYear();
+  const m = today.getMonth() - birth.getMonth();
+
+  if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+    age--;
+  }
+
+  if (age < 13) {
+    setError(dateInput, dateError, 'You must be at least 13 years old.');
+    return false;
+  }
+
+  clearError(dateInput, dateError);
+  return true;
+}
+
+function validateRole() {
   if (roleSelect.value === '') {
     setError(roleSelect, roleError, 'Please select a work role.');
-    isValid = false;
-  } else {
-    clearError(roleSelect, roleError);
+    return false;
   }
 
-  // Address
-  if (addressInput.value.trim() === '') {
+  clearError(roleSelect, roleError);
+  return true;
+}
+
+function validateAddress() {
+  const value = addressInput.value.trim();
+
+  if (value === '') {
     setError(addressInput, addressError, 'Address is required.');
-    isValid = false;
-  } else if (addressInput.value.trim().length < 10) {
-    setError(addressInput, addressError, 'Please enter a complete address.');
-    isValid = false;
-  } else {
-    clearError(addressInput, addressError);
+    return false;
   }
 
-  if (isValid) {
-    // Check if email already exists
-try {
-  const existingUsers = await fetch(API);
-  const users = await existingUsers.json();
+  if (value.length < 10) {
+    setError(addressInput, addressError, 'Please enter a complete address.');
+    return false;
+  }
 
-  const emailExists = users.some(
-    user => user.email.toLowerCase() === emailInput.value.trim().toLowerCase()
-  );
+  clearError(addressInput, addressError);
+  return true;
+}
 
-  if (emailExists) {
-    setError(emailInput, emailError, 'This email is already registered.');
+
+userInput.addEventListener('input', validateUsername);
+emailInput.addEventListener('input', validateEmail);
+passInput.addEventListener('input', () => {
+  validatePassword();
+  validateConfirmPassword();
+});
+confirmInput.addEventListener('input', validateConfirmPassword);
+numInput.addEventListener('input', validatePhone);
+addressInput.addEventListener('input', validateAddress);
+dateInput.addEventListener('change', validateDate);
+roleSelect.addEventListener('change', validateRole);
+
+
+document.getElementById('register').addEventListener('click', async () => {
+
+  const isValid =
+    validateUsername() &&
+    validateEmail() &&
+    validatePassword() &&
+    validateConfirmPassword() &&
+    validatePhone() &&
+    validateDate() &&
+    validateRole() &&
+    validateAddress();
+
+  if (!termsCheck.checked) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Terms Required',
+      text: 'Please accept the Terms & Conditions.'
+    });
     return;
   }
 
-} catch (err) {
-  console.error(err);
-  Swal.fire({
-    icon: 'error',
-    title: 'Server Error',
-    text: 'already existing email.',
-  });
-  return;
-}
-    const userData = {
-      username: userInput.value.trim(),
-      email:    emailInput.value.trim(),
-      password: passInput.value,
-      phone:    numInput.value.trim(),
-      dob:      dateInput.value,
-      gender:   document.querySelector('input[name="gender"]:checked').value,
-      role:     roleSelect.value,
-      address:  addressInput.value.trim()
-    };
+  if (!isValid) return;
 
-    try {
-      const response = await fetch(API, {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(userData)
-      });
+  try {
+    const existingUsers = await fetch(API);
+    const users = await existingUsers.json();
 
-      if (response.ok) {
-        
-        await Swal.fire({
-          icon: 'success',
-          title: 'Registration Successful!',
-          text: 'Welcome to Taskflow. Redirecting to login...',
-          timer: 2000
-        });
+    const emailExists = users.some(
+      user => user.email.toLowerCase() === emailInput.value.trim().toLowerCase()
+    );
 
-        window.location.href = './login.html';
-      } else {
-        throw new Error('Failed to save data');
-      }
-
-    } catch (err) {
-      console.error(err);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong while connecting to the server!',
-      });
+    if (emailExists) {
+      setError(emailInput, emailError, 'This email is already registered.');
+      return;
     }
 
-    } 
+    const userData = {
+      username: userInput.value.trim(),
+      email: emailInput.value.trim(),
+      password: passInput.value,
+      phone: numInput.value.trim(),
+      dob: dateInput.value,
+      gender: document.querySelector('input[name="gender"]:checked').value,
+      role: roleSelect.value,
+      address: addressInput.value.trim()
+    };
+
+    const response = await fetch(API, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    });
+
+    if (response.ok) {
+      await Swal.fire({
+        icon: 'success',
+        title: 'Registration Successful!',
+        text: 'Welcome to Taskflow. Redirecting to login...',
+        timer: 2000
+      });
+
+      window.location.href = './login.html';
+    } else {
+      throw new Error('Failed to save data');
+    }
+
+  } catch (err) {
+    console.error(err);
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong while connecting to the server!'
+    });
+  }
 });
 
-
-
-// Theme Toggle
 const themeToggler = document.getElementById('themeToggler');
 const themeIcon = document.getElementById('themeIcon');
 const html = document.documentElement;
@@ -222,20 +292,20 @@ themeIcon.className =
 // Toggle theme
 themeToggler.addEventListener('click', () => {
 
-  const isDark =
-    html.getAttribute('data-bs-theme') === 'dark';
+  const currentTheme = html.getAttribute('data-bs-theme');
 
   const newTheme =
-    isDark ? 'light' : 'dark';
+    currentTheme === 'dark'
+      ? 'light'
+      : 'dark';
 
   html.setAttribute('data-bs-theme', newTheme);
 
-  themeIcon.className =
-    isDark
-      ? 'bi bi-moon-stars-fill'
-      : 'bi bi-sun-fill';
-
-  // Save theme
   localStorage.setItem('theme', newTheme);
 
+  themeIcon.className =
+    newTheme === 'dark'
+      ? 'bi bi-sun-fill'
+      : 'bi bi-moon-stars-fill';
 });
+
