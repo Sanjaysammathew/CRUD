@@ -22,6 +22,18 @@ const dateError    = document.getElementById('invalid-date');
 const roleError    = document.getElementById('invalid-role');
 const addressError = document.getElementById('invalid-address');
 
+window.addEventListener("DOMContentLoaded", () => {
+
+  userInput.value = localStorage.getItem("username") || "";
+  emailInput.value = localStorage.getItem("email") || "";
+  passInput.value = localStorage.getItem("password") || "";
+  confirmInput.value = localStorage.getItem("confirmPassword") || "";
+  numInput.value = localStorage.getItem("phone") || "";
+  dateInput.value = localStorage.getItem("dob") || "";
+  roleSelect.value = localStorage.getItem("role") || "";
+  addressInput.value = localStorage.getItem("address") || "";
+
+});
 const API = 'http://localhost:3000/users';
 
 function setError(input, errorDiv, message) {
@@ -183,17 +195,40 @@ function validateAddress() {
 }
 
 
-userInput.addEventListener('input', validateUsername);
-emailInput.addEventListener('input', validateEmail);
-passInput.addEventListener('input', () => {
-  validatePassword();
-  validateConfirmPassword();
+userInput.addEventListener('input', () => {
+  validateUsername();
+  localStorage.setItem("username", userInput.value);
 });
-confirmInput.addEventListener('input', validateConfirmPassword);
-numInput.addEventListener('input', validatePhone);
-addressInput.addEventListener('input', validateAddress);
-dateInput.addEventListener('change', validateDate);
-roleSelect.addEventListener('change', validateRole);
+
+emailInput.addEventListener('input', () => {
+  validateEmail();
+  localStorage.setItem("email", emailInput.value);
+});
+
+
+confirmInput.addEventListener('input', () => {
+  validateConfirmPassword();
+  localStorage.setItem("confirmPassword", confirmInput.value);
+});
+
+numInput.addEventListener('input', () => {
+  validatePhone();
+  localStorage.setItem("phone", numInput.value);
+});
+addressInput.addEventListener('input', () => {
+  validateAddress();
+  localStorage.setItem("address", addressInput.value);
+});
+
+dateInput.addEventListener('change', () => {
+  validateDate();
+  localStorage.setItem("dob", dateInput.value);
+});
+
+roleSelect.addEventListener('change', () => {
+  validateRole();
+  localStorage.setItem("role", roleSelect.value);
+});
 
 
 document.getElementById('register').addEventListener('click', async () => {
@@ -252,6 +287,14 @@ document.getElementById('register').addEventListener('click', async () => {
     });
 
     if (response.ok) {
+        localStorage.removeItem("username");
+  localStorage.removeItem("email");
+  localStorage.removeItem("password");
+  localStorage.removeItem("confirmPassword");
+  localStorage.removeItem("phone");
+  localStorage.removeItem("dob");
+  localStorage.removeItem("role");
+  localStorage.removeItem("address");
       await Swal.fire({
         icon: 'success',
         title: 'Registration Successful!',

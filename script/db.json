@@ -127,6 +127,17 @@
       "role": "3",
       "address": "12, nethaji nagar coimbatore",
       "id": "884jrCfLRiw"
+    },
+    {
+      "username": "vishali",
+      "email": "vishali05@gmail.com",
+      "password": "Vishali@05",
+      "phone": "9080624276",
+      "dob": "2005-11-12",
+      "gender": "male",
+      "role": "2",
+      "address": "12, nethaji nagar coimbatore",
+      "id": "IAwzq-YJW-k"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
