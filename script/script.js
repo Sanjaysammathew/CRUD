@@ -6,6 +6,23 @@ const loggedInUser =
 JSON.parse(localStorage.getItem("loggedInUser"));
 
 
+
+
+
+function getBadgeColorClass(status) {
+    switch (String(status).toLowerCase()) {
+        case 'completed':
+            return 'bg-success';
+        case 'pending':
+            return 'bg-warning text-dark';
+        case 'not started':
+            return 'bg-danger';
+        default:
+            return 'bg-primary';
+    }
+}
+
+
 async function addTask(){
 
     const input =
@@ -117,16 +134,26 @@ task.isDeleted === false
         container.innerHTML = ""
 
 
-       // Replace the innerHTML loop inside fetchTasks and filterTasks with this:
+   
 userTasks.forEach(task => {
+
+    const statusColorClass = getBadgeColorClass(task.priority);
+    const todayStr = new Date().toISOString().split("T")[0];
+    const isOverdue = task.dueDate < todayStr && (task.priority === "pending" || task.priority === "Not started");
+
+    let badgesHtml = `<span class="badge ${statusColorClass} px-3 py-2 mb-3 p-3 text-capitalize">${task.priority}</span>`;
+    if (isOverdue) {
+        badgesHtml += ` <span class="badge bg-danger px-3 py-2  mb-3">Overdue</span>`;
+    }
+
     container.innerHTML += `
     <div class="col-md-6 col-12 col-lg-4 d-flex align-items-stretch mb-4">
         <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
             <div class="flex-grow-1">
-                <span class="badge bg-primary w-25 mb-3">
-                    ${task.priority}
-                </span>
-                <h5 class="card-title fw-bold text-truncate-2">
+                <div class="d-flex flex-wrap gap-1">
+                    ${badgesHtml}
+                </div>
+                <h5 class="card-title fw-bold text-truncate-2 mt-1">
                     ${task.title}
                 </h5>
                 <p class="card-text text-secondary text-break">
@@ -160,7 +187,6 @@ userTasks.forEach(task => {
     </div>
     `;
 });
-
     }catch(error){
 
         console.log(error)
@@ -356,14 +382,27 @@ tasks.filter(task =>
 
  // Replace the innerHTML loop inside fetchTasks and filterTasks with this:
 filteredTasks.forEach(task => {
+    // Determine status badge color
+    const statusColorClass = getBadgeColorClass(task.priority);
+    
+    // Check if task is overdue dynamically
+    const todayStr = new Date().toISOString().split("T")[0];
+    const isOverdue = task.dueDate < todayStr && (task.priority === "pending" || task.priority === "Not started");
+
+    // Build the dynamic badges collection
+    let badgesHtml = `<span class="badge ${statusColorClass} px-2 py-1 mb-3 text-capitalize">${task.priority}</span>`;
+    if (isOverdue) {
+        badgesHtml += ` <span class="badge bg-danger px-2 py-1 mb-3">Overdue</span>`;
+    }
+
     container.innerHTML += `
     <div class="col-md-6 col-12 col-lg-4 d-flex align-items-stretch mb-4">
         <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
             <div class="flex-grow-1">
-                <span class="badge bg-primary w-25 mb-3">
-                    ${task.priority}
-                </span>
-                <h5 class="card-title fw-bold text-truncate-2">
+                <div class="d-flex flex-wrap gap-1">
+                    ${badgesHtml}
+                </div>
+                <h5 class="card-title fw-bold text-truncate-2 mt-1">
                     ${task.title}
                 </h5>
                 <p class="card-text text-secondary text-break">
@@ -478,16 +517,18 @@ async function fetchDeletedTasks(){
 
         const container = document.getElementById('taskContainer')
         container.innerHTML = ""
-    // Replace the innerHTML loop inside fetchOverDueTasks with this:
-overDueTasks.forEach(task => {
+       overDueTasks.forEach(task => {
+    const statusColorClass = getBadgeColorClass(task.priority);
+
     container.innerHTML += `
     <div class="col-md-6 col-12 col-lg-4 d-flex align-items-stretch mb-4">
         <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
             <div class="flex-grow-1">
-                <span class="badge bg-danger w-25 mb-3">
-                    Overdue
-                </span>
-                <h5 class="card-title fw-bold text-truncate-2">
+                <div class="d-flex flex-wrap gap-1">
+                    <span class="badge ${statusColorClass} px-2 py-1 mb-3 text-capitalize">${task.priority}</span>
+                    <span class="badge bg-danger px-2 py-1 mb-3">Overdue</span>
+                </div>
+                <h5 class="card-title fw-bold text-truncate-2 mt-1">
                     ${task.title}
                 </h5>
                 <p class="card-text text-secondary text-break">
@@ -516,6 +557,7 @@ overDueTasks.forEach(task => {
     </div>
     `;
 });
+
     } catch(error) {
         console.log(error)
     }
@@ -693,6 +735,6 @@ function setActiveFilter(btn, activeClass) {
     document.querySelectorAll('.filter-btn').forEach(button => {
         button.classList.remove('bg-primary', 'bg-success', 'bg-warning', 'bg-danger', 'text-white');
     });
-    
+
     btn.classList.add(activeClass, 'text-white');
 }
