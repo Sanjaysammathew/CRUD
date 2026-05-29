@@ -135,6 +135,29 @@ document.getElementById('register').addEventListener('click', async () => {
   }
 
   if (isValid) {
+    // Check if email already exists
+try {
+  const existingUsers = await fetch(API);
+  const users = await existingUsers.json();
+
+  const emailExists = users.some(
+    user => user.email.toLowerCase() === emailInput.value.trim().toLowerCase()
+  );
+
+  if (emailExists) {
+    setError(emailInput, emailError, 'This email is already registered.');
+    return;
+  }
+
+} catch (err) {
+  console.error(err);
+  Swal.fire({
+    icon: 'error',
+    title: 'Server Error',
+    text: 'already existing email.',
+  });
+  return;
+}
     const userData = {
       username: userInput.value.trim(),
       email:    emailInput.value.trim(),
