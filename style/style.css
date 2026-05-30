@@ -179,6 +179,60 @@
     align-items: center;
 }
 
+
+[data-bs-theme="light"] .btn-primary, 
+[data-bs-theme="light"] #update {
+    background: linear-gradient(135deg, #ff6b00 0%, #7a0016 100%) !important;
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 4px 14px rgba(255, 107, 0, 0.25) !important;
+}
+
+[data-bs-theme="light"] .btn-primary:hover, 
+[data-bs-theme="light"] #update:hover {
+    background: linear-gradient(135deg, #e05e00 0%, #590010 100%) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(122, 0, 22, 0.35) !important;
+}
+
+[data-bs-theme="light"] .card .btn-dark {
+    background: linear-gradient(135deg, #ff6b00 0%, #7a0016 100%) !important;
+    border: none !important;
+    color: white !important;
+}
+
+[data-bs-theme="light"] .card .btn-dark:hover {
+    background: linear-gradient(135deg, #e05e00 0%, #590010 100%) !important;
+    transform: translateY(-2px);
+}
+
+[data-bs-theme="dark"] .card .btn-dark {
+    background: transparent !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    transition: all 0.25s ease;
+}
+
+[data-bs-theme="dark"] .card .btn-dark:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+}
+
+[data-bs-theme="dark"] #update.btn-primary {
+    background: transparent !important;
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    transition: all 0.25s ease;
+}
+
+[data-bs-theme="dark"] #update.btn-primary:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+}
 @media (max-width: 992px) {
     .task-card,
     .card {

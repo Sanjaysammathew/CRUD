@@ -380,19 +380,19 @@ tasks.filter(task =>
 
         container.innerHTML = ""
 
- // Replace the innerHTML loop inside fetchTasks and filterTasks with this:
+
 filteredTasks.forEach(task => {
-    // Determine status badge color
+
     const statusColorClass = getBadgeColorClass(task.priority);
     
-    // Check if task is overdue dynamically
+
     const todayStr = new Date().toISOString().split("T")[0];
     const isOverdue = task.dueDate < todayStr && (task.priority === "pending" || task.priority === "Not started");
 
     // Build the dynamic badges collection
-    let badgesHtml = `<span class="badge ${statusColorClass} px-2 py-1 mb-3 text-capitalize">${task.priority}</span>`;
+    let badgesHtml = `<span class="badge ${statusColorClass} px-3 py-2 mb-3 text-capitalize">${task.priority}</span>`;
     if (isOverdue) {
-        badgesHtml += ` <span class="badge bg-danger px-2 py-1 mb-3">Overdue</span>`;
+        badgesHtml += ` <span class="badge bg-danger px-3 py-2 mb-3">Overdue</span>`;
     }
 
     container.innerHTML += `
@@ -525,8 +525,8 @@ async function fetchDeletedTasks(){
         <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
             <div class="flex-grow-1">
                 <div class="d-flex flex-wrap gap-1">
-                    <span class="badge ${statusColorClass} px-2 py-1 mb-3 text-capitalize">${task.priority}</span>
-                    <span class="badge bg-danger px-2 py-1 mb-3">Overdue</span>
+                    <span class="badge ${statusColorClass} px-3 py-2 mb-3 text-capitalize">${task.priority}</span>
+                    <span class="badge bg-danger px-3 py-2 mb-3">Overdue</span>
                 </div>
                 <h5 class="card-title fw-bold text-truncate-2 mt-1">
                     ${task.title}
