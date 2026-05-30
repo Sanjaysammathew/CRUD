@@ -59,6 +59,8 @@ loginForm.on("submit", async function (e) {
 
       if (validUser) {
 
+        const validuser = {...validUser}
+        delete validuser.password
           localStorage.setItem("loggedInUser", JSON.stringify(validUser));
 
         await Swal.fire({
