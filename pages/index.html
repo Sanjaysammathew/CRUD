@@ -144,12 +144,14 @@
             aria-expanded="false">
         <i class="bi bi-calendar-event me-1"></i> Filter by Date
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dateFilterDropdown">
-        <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('today', this)">Today</a></li>
-        <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('yesterday', this)">Yesterday</a></li>
-        <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('thisweek', this)">This Week</a></li>
-        <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('old', this)">Older</a></li>
-    </ul>
+<ul class="dropdown-menu" aria-labelledby="dateFilterDropdown">
+    <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('today')">Today</a></li>
+    <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('yesterday')">Yesterday</a></li>
+    <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('thisweek')">This Week</a></li>
+    <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('old')">Older</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#" onclick="promptCustomDateRange()"><i class="bi bi-calendar-range me-1"></i> Custom Range...</a></li>
+</ul>
 </div>
     </div>
 </section>
