@@ -233,6 +233,36 @@
     color: #ffffff !important;
     transform: translateY(-2px);
 }
+/* Smooth, glitch-free light grey filter button */
+.btn-filter-outline {
+    background: transparent !important;
+    /* We apply the 1px border immediately so the layout size never changes */
+    border: 1px solid rgba(0, 0, 0, 0.15) !important; 
+    color: #475569 !important; /* Clean slate grey text */
+    transform: none !important; /* Prevents jumping/shaking */
+}
+
+/* Stable Hover State */
+.btn-filter-outline:hover {
+    background-color: rgba(0, 0, 0, 0.04) !important; /* Soft tint */
+    border-color: rgba(0, 0, 0, 0.25) !important; /* Subtle darkening */
+    color: #1e293b !important;
+    transform: none !important; /* Keeps position completely locked */
+}
+
+/* Dark Mode stability fix */
+[data-bs-theme="dark"] .btn-filter-outline {
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    color: #cbd5e1 !important;
+    transform: none !important;
+}
+
+[data-bs-theme="dark"] .btn-filter-outline:hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    color: #ffffff !important;
+    transform: none !important;
+}
 @media (max-width: 992px) {
     .task-card,
     .card {

@@ -135,6 +135,22 @@
                 onclick="setActiveFilter(this, 'bg-danger'); fetchOverDueTasks()">
             Over Due
         </button>
+
+<div class="dropdown">
+    <button class="btn btn-filter-outline px-4 py-2 rounded-pill dropdown-toggle filter-btn" 
+            type="button" 
+            id="dateFilterDropdown" 
+            data-bs-toggle="dropdown" 
+            aria-expanded="false">
+        <i class="bi bi-calendar-event me-1"></i> Filter by Date
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dateFilterDropdown">
+        <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('today', this)">Today</a></li>
+        <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('yesterday', this)">Yesterday</a></li>
+        <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('thisweek', this)">This Week</a></li>
+        <li><a class="dropdown-item" href="#" onclick="filterTasksByDate('old', this)">Older</a></li>
+    </ul>
+</div>
     </div>
 </section>
 
@@ -161,7 +177,7 @@
 
     <div class="modal fade" id="taskModal">
 
-        <div class="modal-dialog">
+        <div class="modal-dialog  modal-dialog-centered">
 
             <div class="modal-content">
 
@@ -260,7 +276,7 @@
 
     <div class="modal fade" id="taskModalUpdate">
 
-        <div class="modal-dialog">
+        <div class="modal-dialog  modal-dialog-centered">
 
             <div class="modal-content">
 

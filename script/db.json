@@ -59,6 +59,93 @@
       "userId": "ppA1EfiJhwc",
       "isDeleted": true,
       "id": "uL-L-zyPa4s"
+    },
+    {
+      "title": "learn mongo DB",
+      "description": "Learn Mongo db with crud operations and using real time to do list application",
+      "dueDate": "2026-06-11",
+      "priority": "pending",
+      "createdAt": "2/6/2026",
+      "userId": "P2NnuNV0D94",
+      "isDeleted": true,
+      "id": "huIgmkAYHG0"
+    },
+    {
+      "title": "learn Git and Github",
+      "description": "learn git and github  using real time example and also learn git hub merge conflicts",
+      "dueDate": "2026-06-11",
+      "priority": "pending",
+      "createdAt": "2/6/2026",
+      "createdTimestamp": 1780376075290,
+      "userId": "3vAXiB1247k",
+      "isDeleted": false,
+      "id": "INpgPIJGv8w"
+    },
+    {
+      "title": "learn bootstrap",
+      "description": "learn bootstrap with real time example using hmt webistes",
+      "dueDate": "2026-06-17",
+      "priority": "Not started",
+      "createdAt": "2/6/2026",
+      "createdTimestamp": 1780376086946,
+      "userId": "3vAXiB1247k",
+      "isDeleted": false,
+      "id": "IajGkFLlpkY"
+    },
+    {
+      "title": "learn Git and Github",
+      "description": "learn git and github  using real time example and also learn git hub merge conflicts",
+      "dueDate": "2026-06-18",
+      "priority": "pending",
+      "createdAt": "2/6/2026",
+      "createdTimestamp": 1780377651911,
+      "userId": "884jrCfLRiw",
+      "isDeleted": false,
+      "id": "_7eVHww6Kwc"
+    },
+    {
+      "title": "learn bootstrap",
+      "description": "learn bootstrap with real time example using hmt webistes",
+      "dueDate": "2026-06-25",
+      "priority": "Not started",
+      "createdAt": "2/6/2026",
+      "createdTimestamp": 1780377681970,
+      "userId": "884jrCfLRiw",
+      "isDeleted": false,
+      "id": "M1bSU2QdUpA"
+    },
+    {
+      "title": "learn html",
+      "description": "learn html using semantic tags and html  structure and html concepts",
+      "dueDate": "2026-06-17",
+      "priority": "pending",
+      "createdAt": "2/6/2026",
+      "createdTimestamp": 1780377719351,
+      "userId": "884jrCfLRiw",
+      "isDeleted": true,
+      "id": "WUtQcUmuBRk"
+    },
+    {
+      "title": "learn html",
+      "description": "learn html and css concepts",
+      "dueDate": "2026-06-10",
+      "priority": "pending",
+      "createdAt": "2/6/2026",
+      "createdTimestamp": 1780383998027,
+      "userId": "P2NnuNV0D94",
+      "isDeleted": false,
+      "id": "vpAgqZWH16s"
+    },
+    {
+      "title": "learn html",
+      "description": "learn html and css",
+      "dueDate": "2026-06-11",
+      "priority": "pending",
+      "createdAt": "2/6/2026",
+      "createdTimestamp": 1780384960157,
+      "userId": "884jrCfLRiw",
+      "isDeleted": false,
+      "id": "aGl-w_vO5WI"
     }
   ],
   "users": [

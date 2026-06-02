@@ -82,6 +82,7 @@ if(date < today){
                 dueDate:date,
                 priority:priority,
                 createdAt: new Date().toLocaleDateString(),
+                createdTimestamp: Date.now(),
                 userId: loggedInUser.id,
                 isDeleted: false
 
@@ -126,6 +127,10 @@ tasks.filter(task =>
 task.userId === loggedInUser.id &&
 task.isDeleted === false
 
+);
+
+userTasks.sort((a, b) =>
+    b.createdTimestamp - a.createdTimestamp
 );
         const container =
         document.getElementById('taskContainer')
@@ -374,6 +379,10 @@ tasks.filter(task =>
     task.isDeleted === false
 
 )
+
+filteredTasks.sort((a, b) =>
+    b.createdTimestamp - a.createdTimestamp
+);
 
         const container =
         document.getElementById('taskContainer')
@@ -624,6 +633,143 @@ async function restoreTask(id){
 
 }
 
+
+async function filterTasksByDate(dateRange, element) {
+    const dropdownBtn = document.getElementById('dateFilterDropdown');
+    setActiveFilter(dropdownBtn, 'bg-info');
+
+    try {
+        const response = await fetch(API);
+        const tasks = await response.json();
+
+    
+        const userTasks = tasks.filter(task => 
+            task.userId === loggedInUser.id && task.isDeleted === false
+        );
+       
+        userTasks.sort((a, b) =>
+    b.createdTimestamp - a.createdTimestamp
+);
+        
+        const now = new Date();
+        
+       
+        const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        
+        const yesterdayMidnight = new Date(todayMidnight);
+        yesterdayMidnight.setDate(yesterdayMidnight.getDate() - 1);
+        
+       
+        const currentDayOfWeek = now.getDay(); 
+        const startOfWeekMidnight = new Date(todayMidnight);
+        startOfWeekMidnight.setDate(startOfWeekMidnight.getDate() - currentDayOfWeek);
+
+        const filteredTasks = userTasks.filter(task => {
+            if (!task.createdAt) return false;
+
+           
+            let taskDate;
+            if (task.createdAt.includes('/')) {
+                const parts = task.createdAt.split('/');
+                
+                if (parts[0].length === 4) {
+                    taskDate = new Date(parts[0], parts[1] - 1, parts[2]);
+                } else if (parseInt(parts[1]) > 12) {
+                    taskDate = new Date(parts[2], parts[0] - 1, parts[1]);
+                } else {
+                    taskDate = new Date(parts[2], parts[1] - 1, parts[0]);
+                }
+            } else {
+                taskDate = new Date(task.createdAt);
+            }
+            
+            const taskMidnight = new Date(taskDate.getFullYear(), taskDate.getMonth(), taskDate.getDate());
+
+            switch (dateRange) {
+                case 'today':
+                    return taskMidnight.getTime() === todayMidnight.getTime();
+                case 'yesterday':
+                    return taskMidnight.getTime() === yesterdayMidnight.getTime();
+                case 'thisweek':
+                  
+                    return taskMidnight >= startOfWeekMidnight && taskMidnight <= todayMidnight;
+                case 'old':
+                   
+                    return taskMidnight < startOfWeekMidnight;
+                default:
+                    return true;
+            }
+        });
+
+        
+        const container = document.getElementById('taskContainer');
+        container.innerHTML = "";
+
+        if (filteredTasks.length === 0) {
+            container.innerHTML = `
+                <div class="col-12 text-center mt-5">
+                    <p class="text-secondary fs-5">No tasks found for this date range.</p>
+                </div>`;
+            return;
+        }
+
+        // Loop and render matching task cards
+        filteredTasks.forEach(task => {
+            const statusColorClass = getBadgeColorClass(task.priority);
+            const todayStr = now.toISOString().split("T")[0];
+            const isOverdue = task.dueDate < todayStr && (task.priority === "pending" || task.priority === "Not started");
+
+            let badgesHtml = `<span class="badge ${statusColorClass} px-3 py-2 mb-3 p-3 text-capitalize">${task.priority}</span>`;
+            if (isOverdue) {
+                badgesHtml += ` <span class="badge bg-danger px-3 py-2 mb-3">Overdue</span>`;
+            }
+
+            container.innerHTML += `
+            <div class="col-md-6 col-12 col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
+                    <div class="flex-grow-1">
+                        <div class="d-flex flex-wrap gap-1">
+                            ${badgesHtml}
+                        </div>
+                        <h5 class="card-title fw-bold text-truncate-2 mt-1">
+                            ${task.title}
+                        </h5>
+                        <p class="card-text text-secondary text-break">
+                            ${task.description}
+                        </p>
+                        <p class="card-text text-secondary mb-1">
+                            <small>Due Date: ${task.dueDate}</small>
+                        </p>
+                        <p class="card-text text-secondary mb-3">
+                            <small>Created At: ${task.createdAt}</small>
+                        </p>
+                    </div>
+                    
+                    <div class="d-flex gap-2 mt-auto w-100">
+                        <button
+                            class="btn btn-dark d-flex align-items-center justify-content-center gap-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#taskModalUpdate"
+                            onclick="editTask('${task.id}')"
+                        >
+                            <i class="bi bi-pencil-square"></i> Update
+                        </button>
+                        <button
+                            class="btn btn-danger d-flex align-items-center justify-content-center gap-2" 
+                            onclick="deleteTask('${task.id}')"
+                        >
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+        });
+
+    } catch (error) {
+        console.error("Error filtering tasks by date:", error);
+    }
+}
+
 fetchTasks()
 
  const themeToggle = document.getElementById('themeToggle');
@@ -733,7 +879,7 @@ document.addEventListener('click', (e) => {
 
 function setActiveFilter(btn, activeClass) {
     document.querySelectorAll('.filter-btn').forEach(button => {
-        button.classList.remove('bg-primary', 'bg-success', 'bg-warning', 'bg-danger', 'text-white');
+        button.classList.remove('bg-primary', 'bg-success', 'bg-warning', 'bg-danger', 'bg-info', 'text-white');
     });
 
     btn.classList.add(activeClass, 'text-white');
