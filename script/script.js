@@ -616,10 +616,6 @@ async function restoreTask(id){
                 text: "Task restored successfully.",
                 icon: "success",
 
-                confirmButtonColor: "#14b8a6",
-
-                background: "#1e293b",
-                color: "#fff"
 
             });
 
@@ -634,7 +630,7 @@ async function restoreTask(id){
 }
 
 
-async function filterTasksByDate(dateRange, element) {
+async function filterTasksByDate(dateRange) {
     const dropdownBtn = document.getElementById('dateFilterDropdown');
     setActiveFilter(dropdownBtn, 'bg-info');
 
@@ -663,44 +659,40 @@ async function filterTasksByDate(dateRange, element) {
         const currentDayOfWeek = now.getDay(); 
         const startOfWeekMidnight = new Date(todayMidnight);
         startOfWeekMidnight.setDate(startOfWeekMidnight.getDate() - currentDayOfWeek);
-
+      
         const filteredTasks = userTasks.filter(task => {
-            if (!task.createdAt) return false;
 
-           
-            let taskDate;
-            if (task.createdAt.includes('/')) {
-                const parts = task.createdAt.split('/');
-                
-                if (parts[0].length === 4) {
-                    taskDate = new Date(parts[0], parts[1] - 1, parts[2]);
-                } else if (parseInt(parts[1]) > 12) {
-                    taskDate = new Date(parts[2], parts[0] - 1, parts[1]);
-                } else {
-                    taskDate = new Date(parts[2], parts[1] - 1, parts[0]);
-                }
-            } else {
-                taskDate = new Date(task.createdAt);
-            }
-            
-            const taskMidnight = new Date(taskDate.getFullYear(), taskDate.getMonth(), taskDate.getDate());
+    if (!task.createdTimestamp) return false;
 
-            switch (dateRange) {
-                case 'today':
-                    return taskMidnight.getTime() === todayMidnight.getTime();
-                case 'yesterday':
-                    return taskMidnight.getTime() === yesterdayMidnight.getTime();
-                case 'thisweek':
-                  
-                    return taskMidnight >= startOfWeekMidnight && taskMidnight <= todayMidnight;
-                case 'old':
-                   
-                    return taskMidnight < startOfWeekMidnight;
-                default:
-                    return true;
-            }
-        });
+    const taskDate = new Date(task.createdTimestamp);
 
+    const taskMidnight = new Date(
+        taskDate.getFullYear(),
+        taskDate.getMonth(),
+        taskDate.getDate()
+    );
+
+    switch (dateRange) {
+
+        case 'today':
+            return taskMidnight.getTime() === todayMidnight.getTime();
+
+        case 'yesterday':
+            return taskMidnight.getTime() === yesterdayMidnight.getTime();
+
+        case 'thisweek':
+            return (
+                taskMidnight >= startOfWeekMidnight &&
+                taskMidnight <= todayMidnight
+            );
+
+        case 'old':
+            return taskMidnight < startOfWeekMidnight;
+
+        default:
+            return true;
+    }
+});
         
         const container = document.getElementById('taskContainer');
         container.innerHTML = "";
@@ -713,7 +705,6 @@ async function filterTasksByDate(dateRange, element) {
             return;
         }
 
-        // Loop and render matching task cards
         filteredTasks.forEach(task => {
             const statusColorClass = getBadgeColorClass(task.priority);
             const todayStr = now.toISOString().split("T")[0];
@@ -770,6 +761,140 @@ async function filterTasksByDate(dateRange, element) {
     }
 }
 
+async function promptCustomDateRange() {
+    const dropdownBtn = document.getElementById('dateFilterDropdown');
+    
+    const { value: formValues } = await Swal.fire({
+        title: 'Select Date Range',
+        html:
+            '<div class="mb-3 text-start">' +
+            '  <label class="form-label fw-bold">From (Start Date):</label>' +
+            '  <input id="swal-start-date" type="date" class="form-control">' +
+            '</div>' +
+            '<div class="mb-3 text-start">' +
+            '  <label class="form-label fw-bold">To (End Date):</label>' +
+            '  <input id="swal-end-date" type="date" class="form-control">' +
+            '</div>',
+        focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Apply Filter',
+        confirmButtonColor: '#14b8a6',
+        background: document.documentElement.getAttribute('data-bs-theme') === 'dark' ? '#1e293b' : '#ffffff',
+        color: document.documentElement.getAttribute('data-bs-theme') === 'dark' ? '#fff' : '#000',
+        preConfirm: () => {
+            const startDate = document.getElementById('swal-start-date').value;
+            const endDate = document.getElementById('swal-end-date').value;
+            
+            if (!startDate || !endDate) {
+                Swal.showValidationMessage('Please select both start and end dates');
+                return false;
+            }
+            if (new Date(startDate) > new Date(endDate)) {
+                Swal.showValidationMessage('Start date cannot be after the end date');
+                return false;
+            }
+            
+            return { startDate, endDate };
+        }
+    });
+
+    if (formValues) {
+        setActiveFilter(dropdownBtn, 'bg-info');
+        filterTasksByCustomRange(formValues.startDate, formValues.endDate);
+    }
+}
+
+
+async function filterTasksByCustomRange(startDateStr, endDateStr) {
+    try {
+        const response = await fetch(API);
+        const tasks = await response.json();
+
+    
+        const userTasks = tasks.filter(task => 
+            task.userId === loggedInUser.id && task.isDeleted === false
+        );
+
+       
+        userTasks.sort((a, b) => b.createdTimestamp - a.createdTimestamp);
+
+        const startMidnight = new Date(startDateStr);
+        startMidnight.setHours(0, 0, 0, 0);
+
+        const endMidnight = new Date(endDateStr);
+        endMidnight.setHours(23, 59, 59, 999);
+
+        const filteredTasks = userTasks.filter(task => {
+            if (!task.createdTimestamp) return false;
+            return task.createdTimestamp >= startMidnight.getTime() && task.createdTimestamp <= endMidnight.getTime();
+        });
+
+        const container = document.getElementById('taskContainer');
+        container.innerHTML = "";
+
+        if (filteredTasks.length === 0) {
+            container.innerHTML = `
+                <div class="col-12 text-center mt-5">
+                    <p class="text-secondary fs-5">No tasks found between ${startDateStr} and ${endDateStr}.</p>
+                </div>`;
+            return;
+        }
+
+        filteredTasks.forEach(task => {
+            const statusColorClass = getBadgeColorClass(task.priority);
+            const todayStr = new Date().toISOString().split("T")[0];
+            const isOverdue = task.dueDate < todayStr && (task.priority === "pending" || task.priority === "Not started");
+
+            let badgesHtml = `<span class="badge ${statusColorClass} px-3 py-2 mb-3 p-3 text-capitalize">${task.priority}</span>`;
+            if (isOverdue) {
+                badgesHtml += ` <span class="badge bg-danger px-3 py-2 mb-3">Overdue</span>`;
+            }
+
+            container.innerHTML += `
+            <div class="col-md-6 col-12 col-lg-4 d-flex align-items-stretch mb-4">
+                <div class="card p-3 shadow-lg border-0 h-100 w-100 d-flex flex-column">
+                    <div class="flex-grow-1">
+                        <div class="d-flex flex-wrap gap-1">
+                            ${badgesHtml}
+                        </div>
+                        <h5 class="card-title fw-bold text-truncate-2 mt-1">
+                            ${task.title}
+                        </h5>
+                        <p class="card-text text-secondary text-break">
+                            ${task.description}
+                        </p>
+                        <p class="card-text text-secondary mb-1">
+                            <small>Due Date: ${task.dueDate}</small>
+                        </p>
+                        <p class="card-text text-secondary mb-3">
+                            <small>Created At: ${task.createdAt}</small>
+                        </p>
+                    </div>
+                    
+                    <div class="d-flex gap-2 mt-auto w-100">
+                        <button
+                            class="btn btn-dark d-flex align-items-center justify-content-center gap-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#taskModalUpdate"
+                            onclick="editTask('${task.id}')"
+                        >
+                            <i class="bi bi-pencil-square"></i> Update
+                        </button>
+                        <button
+                            class="btn btn-danger d-flex align-items-center justify-content-center gap-2" 
+                            onclick="deleteTask('${task.id}')"
+                        >
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+        });
+
+    } catch (error) {
+        console.error("Error filtering tasks by custom range:", error);
+    }
+}
 fetchTasks()
 
  const themeToggle = document.getElementById('themeToggle');
